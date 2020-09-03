@@ -1,0 +1,395 @@
+
+ 0 D$ =  CHR$ (4): PRINT D$"OPEN PARSER.TXT": PRINT D$"WRITE PARSER.TXT": POKE 33,73: LIST : PRINT D$"CLOSE": TEXT : END 
+ 1  GOTO 10
+ 5  PRINT  CHR$ (4)"SAVEPARSER": END 
+ 10  REM 
+
+
+PARSER.7
+
+
+
+ 20  DEF  FN B(X) = (OL(X) - 200) * (OL(X) > 200 AND OL(X) < 300)
+ 30  DEF  FN C(X) = (OL(X) = RM) OR (OL(X) = 101) OR (OL(X) = 102) OR (OL( FN B(X)) = RM) OR (OL( FN B(X)) = 101)
+ 40  GOTO 1000
+ 100  REM 
+
+**** GENERAL SUBROUTINES ****
+
+ 101  REM  >>>> PRINT STRING A$ <<<<<
+ 105  REM    SW = SCREEN WIDTH
+ 106  REM   NL = NUMBER OF. LINES AFTERWARDS 
+ 110 H =  PEEK (36) + 1: IF  LEN (A$) < SW - H THEN  PRINT A$;:SC = SC + 1: GOTO 140
+ 120  FOR X = SW - H TO 1 STEP  - 1: IF  MID$ (A$,X,1) <  > " " THEN  NEXT 
+ 130  PRINT  LEFT$ (A$,X - 1):A$ =  MID$ (A$,X + 1):SC = SC + 1: IF SC < 15 THEN 110
+ 135  GOSUB 180: GOTO 110
+ 140  IF  NOT NL THEN  RETURN 
+ 150  FOR X = 1 TO NL: PRINT :SC = SC + 1: IF SC < 15 THEN  NEXT :NL = 0: RETURN 
+ 160  GOSUB 180: NEXT :NL = 0: RETURN 
+ 180  PRINT MR$: WAIT 49152,128: POKE 49168,0: VTAB  PEEK (37): PRINT  SPC( 10): PRINT : VTAB  PEEK (37):SC = 1: RETURN 
+ 200  REM //// A$=NEXT WORD OF STRING C$ \\\\
+ 205 A$ = ""
+ 210 Z$ =  LEFT$ (C$,1): IF Z$ = " " OR Z$ = "." OR Z$ = "," THEN C$ =  MID$ (C$,2): GOTO 210
+ 220 Z$ =  RIGHT$ (C$,1): IF Z$ = " " OR Z$ = "." OR Z$ = "," THEN C$ =  LEFT$ (C$, LEN (C$) - 1): GOTO 220
+ 230 C$ = C$ + " ": IF C$ = " " THEN A$ = "":C$ = A$: RETURN 
+ 235  IF  LEFT$ (C$,1) = QT$ THEN A$ = QT$: FOR I = 2 TO  LEN (C$):A$ = A$ +  MID$ (C$,I,1): IF  RIGHT$ (A$,1) = QT$ THEN WT = 2:WM = 0:W$ = A$: RETURN 
+ 236  IF  LEFT$ (A$,1) = QT$ THEN  NEXT :WT = 2:WM = 0:W$ = A$: RETURN 
+ 240  FOR I = 1 TO  LEN (C$):Z$ =  MID$ (C$,I,1): IF Z$ <  > " " AND Z$ <  > "," AND Z$ <  > "." THEN  NEXT 
+ 250 A$ =  LEFT$ (C$,I - 1)
+ 260 W$ = A$: GOSUB 300: IF WT < 5 AND WT > 0 THEN  RETURN 
+ 265  IF WT = 0 THEN  PRINT "I don't know the word '"W$"'.": POP : GOTO 1000
+ 270  IF WT = 7 THEN  NEXT I: GOTO 250
+ 280  IF WT = 6 THEN  RETURN 
+ 290 C$ =  MID$ (C$,I + 1): GOTO 200
+ 300  REM //// WT = TYPE OF WORD W$ \\\\
+ 310 WT = 0
+ 315  IF  LEFT$ (W$,1) = QT$ OR  VAL (W$) OR  LEFT$ (W$,1) = "0" THEN WT = 2:WM = 0: RETURN 
+ 320  FOR T = 1 TO 17: IF W$ = WD$(T) THEN WT = WT(T):WM = WM(T):T = TW + 1: GOTO 390
+ 330  NEXT : FOR T = 1 TO NO: IF W$ = OB$(T) THEN WT = 2:WM = T:T = TW + 1: GOTO 390
+ 340  NEXT : FOR T = 1 TO NC: IF W$ = CN$(T) THEN WT = 2:WM = 100 + T:T = TW + 1: GOTO 390
+ 350  NEXT : FOR T = 18 TO TW: IF W$ = WD$(T) THEN WT = WT(T):WM = WM(T):T = TW + 1: GOTO 390
+ 360  NEXT : FOR T = 1 TO NO: IF W$ =  RIGHT$ (OB$(T), LEN (W$)) THEN WT = 2:WM = T:T = TW + 1: GOTO 390
+ 370  NEXT : FOR T = 1 TO NC: IF W$ =  RIGHT$ (CN$(T), LEN (W$)) THEN WT = 2:WM = 100 + T:T = TW + 1: GOTO 390
+ 390  NEXT : RETURN 
+ 400  REM //// PREPARE COMMAND C$ FOR BREAKDOWN \\\\
+ 410  IF C$ = "" THEN  PRINT : PRINT "Beg pardon?": POP : GOTO 1010
+ 412  IF  RIGHT$ (C$,1) = "." OR  RIGHT$ (C$,1) = " " THEN C$ =  LEFT$ (C$, LEN (C$) - 1): GOTO 412
+ 415 I = 1
+ 420 A$ =  MID$ (C$,I,1): IF A$ = "." OR A$ = "," THEN C$ =  LEFT$ (C$,I - 1) + " AND " +  MID$ (C$,I + 1): GOTO 450
+ 430  IF A$ = " " THEN Z = Z + 1: IF Z > 1 THEN C$ =  LEFT$ (C$,I - 1) +  MID$ (C$,I + 1):Z = Z - 1:I = I - 1: GOTO 450
+ 440  IF A$ <  > " " THEN Z = 0
+ 450 I = I + 1: IF I <  =  LEN (C$) THEN 420
+ 460  RETURN 
+ 500  REM //// INPUT W/COMMAS & COLONS \\\\
+ 510  CALL  - 657:A$ = "": FOR X = 512 TO 767: IF  PEEK (X) <  > 141 THEN A$ = A$ +  CHR$ ( PEEK (X) - 128): NEXT 
+ 520 X = 768: NEXT : RETURN 
+ 600  REM //// PRINT ROUTINE \\\\
+ 605  IF F$ = "OBJ DESC" AND R > NO - NP THEN A$ = OB$(R): GOSUB 850:A$ = "   You see your " + A$ + ".":NL = 1: GOTO 100
+ 610  PRINT : PRINT D$"OPEN"F$",L207"
+ 620 H =  PEEK (1403) + 1: PRINT : PRINT D$"READ"F$",R"R: INPUT A$: VTAB  PEEK (37): HTAB H: IF  RIGHT$ (A$,1) = "@" THEN 640
+ 630  GOSUB 100: PRINT : PRINT D$"CLOSE"F$: RETURN 
+ 640  REM 
+ 690 R =  VAL ( MID$ (A$, LEN (A$) - 2)):A$ =  LEFT$ (A$, LEN (A$) - 3): GOSUB 100: GOTO 620
+ 700  REM //// DESCRIBE ROOM RM \\\\
+ 710 R = RM:F$ = RD$: GOSUB 600
+ 720  FOR O = 1 TO NO: IF OL(O) <  > RM THEN  NEXT : GOTO 770
+ 730  IF  NOT OS(O) THEN OS(O) = 1:R = O:F$ = OD$: GOSUB 600: GOTO 760
+ 740  IF OT(O) <  > 7 THEN A$ = OB$(O): GOSUB 850: PRINT "   You see "A$".": GOTO 760
+ 750 A$ = OB$(O): GOSUB 870: PRINT "   You see "A$"."
+ 760  NEXT 
+ 770  FOR I = 1 TO NC: IF CR(I) <  > RM THEN 790
+ 780  IF  NOT CS(I) THEN CS(I) = 1:R = I:F$ = CD$: GOSUB 600: GOTO 790
+ 785 A$ = CN$(I): GOSUB 870: PRINT "   "A$" is here."
+ 790  NEXT : PRINT : RETURN 
+ 800  REM //// GET S$ IF NOT SPECIFIED \\\\
+ 840  PRINT : PRINT V$;: INPUT " WHAT? ";S$:W$ = S$: GOSUB 300:S = WM: RETURN 
+ 850  REM //// CONVERT UPPER -> LOWER \\\\
+ 860 B$ = "": FOR L = 1 TO  LEN (A$):Z =  ASC ( MID$ (A$,L,1)):Z = Z + 32 * (Z < 91 AND Z > 64):B$ = B$ +  CHR$ (Z): NEXT :A$ = B$: RETURN 
+ 870  REM //// UPPER -> LOWER, SANS 1st CHAR \\\\
+ 880 B$ =  LEFT$ (A$,1): FOR L = 2 TO  LEN (A$):Z =  ASC ( MID$ (A$,L,1)):Z = Z + 32 * (Z < 91 AND Z > 64):B$ = B$ +  CHR$ (Z): NEXT :A$ = B$: RETURN 
+ 900  REM //// CONVERT INDIRECT OBJECTS \\\\
+ 910  IF S < 100 THEN  RETURN 
+ 920 OP$ = S$:OP = S:P$ = "TO":P = 3
+ 930  IF C$ = "" OR C$ = " " THEN 800
+ 940  GOSUB 200:S$ = A$:S = WM:C$ =  MID$ (C$,I + 1): RETURN 
+ 1000  REM 
+
+**** MAIN LOOP ****
+ 1010  PRINT :SC = 0: PRINT ">";: GOSUB 500:C$ = A$: IF C$ = "G" OR C$ = "AGAIN" THEN C$ = CZ$
+ 1020  GOSUB 400
+ 1040 CZ$ = C$: GOSUB 200:V$ = A$:V = WM: IF WT <  > 1 THEN  PRINT "You must supply a verb!": GOTO 1000
+ 1050 C$ =  MID$ (C$,I + 1): GOSUB 200:S$ = A$:S = WM: IF WT = 3 THEN C$ = S$ + " " + C$:S$ = "":S = 0: GOTO 1070
+ 1055  IF S$ = "IT" THEN S$ = LS$:S = LS
+ 1060 P$ = "":OP$ = P$:P = 0:OP = P: IF WT = 4 THEN S$ = "":S = 0: GOTO 1400
+ 1070 C$ =  MID$ (C$,I + 1): GOSUB 200: IF WT = 3 THEN P$ = A$:P = WM:C$ =  MID$ (C$,I + 1): GOSUB 200:OP$ = A$:OP = WM
+ 1080  IF OP$ = "IT" THEN OP$ = LS$:OP = LS
+ 1085  IF OP$ <  > "" THEN LS$ = OP$:LS = OP
+ 1090  IF P$ <  > "" OR C$ = "" THEN 1400
+ 1100 Q$ = C$: REM   LOOKING AHEAD FOR PREPOSITION
+ 1110 C$ =  MID$ (C$,I + 1): GOSUB 200: IF WT <  > 1 AND WT <  > 3 AND C$ <  > "" THEN 1110
+ 1120  IF WT = 1 OR C$ = "" THEN C$ = Q$: GOTO 1400
+ 1130 P$ = W$:P = WM:C$ =  MID$ (C$,I + 1): GOSUB 200:OP$ = A$:OP = WM:C$ = Q$: GOTO 1080
+ 1400  REM 
+ 1420 LS$ = S$:LS = S: IF OP$ <  > "" THEN LS$ = OP$:LS = OP
+ 1430 QQ = I:VB = V:MV = 0
+ 1440  PRINT 
+ 1450  ON V GOSUB 2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000,14000,15000,16000,16500,17000,18000,19000,20000,21000,23000,24000,25000
+ 1460  GOSUB 29000: REM  MONSTER'S ACTIONS
+ 1490 I = QQ
+ 1500  REM **** COMMANDS RETURN TO HERE ****
+ 1505 V =  PEEK (37) + 1:SD = SD + 1: INVERSE : VTAB 1: HTAB 56: PRINT  INT (SN)"  ";: HTAB 71: PRINT SD"  ";: NORMAL : VTAB V: HTAB 1: PRINT 
+ 1506  GOSUB 1600:V = VB
+ 1508  GOSUB 200
+ 1509 C$ =  MID$ (C$,I + 1)
+ 1510  IF C$ = " " OR C$ = "" THEN 1000
+ 1520  GOSUB 200:W$ = A$: GOSUB 300: IF WT = 1 THEN V$ = A$:V = WM: GOTO 1050
+ 1530  IF WT = 2 THEN S$ = A$:S = WM: GOTO 1060
+ 1540  IF WT = 4 THEN C$ =  MID$ (C$,I + 1): GOTO 1510
+ 1550  PRINT "PROBLEM IN THE 1500'S.": END 
+ 1600  REM 
+
+**** SPECIAL CHECKS AFTER COMMAND ****
+
+
+ 1605  IF ZZ(1) THEN AC = AC - 1:ZZ(1) = ZZ(1) - 1: IF  NOT ZZ(1) THEN  PRINT "The glow around your body has faded to nothingness."
+ 1607  IF ZZ(2) THEN ZZ(2) = ZZ(2) - 1
+ 1608  IF ZZ(3) THEN ST = ST - 1:SD = SD + 1:ZZ(3) = ZZ(3) - 1: IF  NOT ZZ(3) THEN  PRINT "The last of the magic strength has left your body.  (What a letdown.)"
+ 1610  IF ZZ(4) THEN ZZ(4) = ZZ(4) + .5: IF ZZ(4) =  INT (ZZ(4)) THEN CM(ZZ(4) - 1) =  - CM(ZZ(4) - 1):ZZ(4) = 0
+ 1630  IF ZZ(5) THEN ZZ(5) = ZZ(5) - 1: IF  NOT ZZ(5) AND RM = 15 THEN  PRINT "The vines again grab your legs."
+ 1640  IF RM < 24 OR RM > 26 THEN 1650
+ 1641  IF  NOT ZZ(6) THEN 1646
+ 1642  IF RM = ZZ(6) THEN  PRINT "A dart shoots out of the wall, pricking your neck!": POKE 4,10: POKE 5,100: POKE 7,15: CALL 807:HP = HP - 1:HE = HE + 1: IF HP < 1 OR HE > 9 THEN 39000
+ 1643  IF RM = ZZ(6) THEN  GOSUB 19000:ZZ(6) = 0: GOTO 1650
+ 1644 A$ = "A dart whizzes past, missing you!": POKE 4,10: POKE 5,100: POKE 7,15: CALL 807:ZZ(6) = 0: GOTO 1650
+ 1646 ZZ(6) =  INT (2 *  RND (1) + 24): IF ZZ(6) = RM THEN  PRINT "You hear a click in the wall beside you.": GOTO 1649
+ 1647  IF ZZ(6) > RM THEN  PRINT "You hear a click down the hall to the east.": GOTO 1649
+ 1648  PRINT "You hear a click down the hall to the west."
+ 1649 U =  PEEK (49200) +  PEEK (49200) *  PEEK (49200)
+ 1650  IF CR(14) = RM AND MV THEN  PRINT "As you enter, the fungus shrieks loudly.": FOR I = 1 TO 3: POKE 0,1: POKE 1,2: POKE 2,25: POKE 3,1: POKE 5,128: POKE 6,4: CALL 835: NEXT 
+ 1660  IF OL(21) <  > 102 THEN 1670
+ 1661 ZZ(7) = ZZ(7) + 1: ON ZZ(7) GOTO 1662,1663,1664,1665,1666
+ 1662  PRINT "You feel a strange presence in your mind.": GOTO 1670
+ 1663  PRINT "Memories flow through your head that you haven't thought of for years.": GOTO 1670
+ 1664  PRINT "Strange visions of things you've never seen flash before your eyes.": GOTO 1670
+ 1665  PRINT "You involuntarily shudder and scream as something tries to wrench control of    your mind!": GOTO 1670
+ 1666 F$ = EF$:R = 2: GOSUB 600: PRINT :HP =  - 1: GOTO 39000
+ 1670 :
+ 1999  RETURN 
+ 2000  REM 
+
+**** GET COMMAND ****
+
+
+ 2010  IF S$ = "" THEN  GOSUB 800
+ 2020  IF (S < 1 OR S > 99) AND S$ <  > "ALL" THEN  PRINT "Absurdity abounds...": RETURN 
+ 2030  IF OL(S) = RM THEN 2100
+ 2040  IF OL(S) = 101 OR OL( FN B(S)) = 101 THEN  PRINT "You've already got that.": RETURN 
+ 2050  IF OL(S) = 102 THEN  PRINT "You're already wearing that!": RETURN 
+ 2060  IF S$ = "ALL" THEN  FOR S = 1 TO NO: ON  FN C(S) AND OL(S) <  > 101 AND OL( FN B(S)) <  > 101 AND OL(S) <  > 102 GOSUB 2100: NEXT S: RETURN 
+ 2090  IF  NOT  FN C(S) THEN A$ = S$: GOSUB 850: PRINT "You can't see any "A$" here!": RETURN 
+ 2100  REM --> SPECIAL EFFECTS OF GETTING OBJECT <--
+ 2110  IF S = 11 THEN  PRINT "The vine is attached firmly into the trees above.": RETURN 
+ 2910  IF OT(S) = 5 THEN  PRINT "You'll need to put that in a container to carry it.": RETURN 
+ 2920  IF OT(S) = 7 THEN A$ = OB$(S): GOSUB 870: PRINT "Get "A$"???  Please try to keep absurdity to a minimum!": RETURN 
+ 2930  IF CR > MC THEN  PRINT "Sorry, you can't carry any more.":S = S + NO * (S$ = "ALL"): RETURN 
+ 2940  IF OW(S) > ST THEN  PRINT "That's too heavy for you.": RETURN 
+ 2950 OL(S) = 101:CR = CR + 1:A$ = OB$(S): GOSUB 870: PRINT A$" taken."
+ 2960  RETURN 
+ 3000  REM 
+
+**** DROP COMMAND ****
+
+
+ 3010  IF S$ = "" THEN  GOSUB 800
+ 3015  IF  VAL (S$) THEN  PRINT "You can't just drop your money!": RETURN 
+ 3020  IF OL(S) = 101 OR OL(S) = 102 THEN 3100
+ 3030  IF OL(S) > 200 AND OL(S) < 300 THEN X = OL(S) - 200: IF OL(X) = 101 OR OL(X) = 102 THEN 3100
+ 3050  IF S$ = "ALL" THEN  FOR S = 1 TO NO: ON (OL(S) = 101 OR OL(S) = 102) GOSUB 3100: NEXT : RETURN 
+ 3090  PRINT "You don't have that.": RETURN 
+ 3100  REM --> SPECIAL EFFECTS OF DROPPING OBJECT <--
+ 3930  IF OT(S) = 2 AND OL(S) = 102 THEN AC = AC - O1(S):EN = EN - O2(S): REM ARMOUR
+ 3940  IF S = RW THEN RW = 0
+ 3950 A$ = OB$(S): GOSUB 870: PRINT A$" dropped.":CR = CR - 1
+ 3960 OL(S) = RM: RETURN 
+ 4000  REM 
+
+**** MOVE COMMAND ****
+
+
+ 4010  IF V$ = "MOVE" OR V$ = "GO" THEN V$ = S$:V = S
+ 4020 D = 1 * (V$ = "N" OR V$ = "NORTH") + 2 * (V$ = "E" OR V$ = "EAST") + 3 * (V$ = "S" OR V$ = "SOUTH") + 4 * (V$ = "W" OR V$ = "WEST") + 5 * (V$ = "NE" OR V$ = "NORTHEAST")
+ 4030 D = D + 6 * (V$ = "SE" OR V$ = "SOUTHEAST") + 7 * (V$ = "SW" OR V$ = "SOUTHWEST") + 8 * (V$ = "NW" OR V$ = "NORTHWEST") + 9 * (V$ = "U" OR V$ = "UP") + 10 * (V$ = "D" OR V$ = "DOWN")
+ 4040  IF DR(RM,D) > 0 THEN 4050
+ 4041  IF RM > 6 AND RM < 14 THEN  PRINT "No branches in that direction could support you.": RETURN 
+ 4042  IF RM > 16 AND RM < 21 THEN  PRINT "You walk into a wall.": RETURN 
+ 4043  IF RM > 25 AND RM < 32 OR RM = 6 THEN  PRINT "You find only solid wall in that direction.": RETURN 
+ 4045  PRINT "The thick jungle is impassable in that direction.": RETURN 
+ 4050  IF DR(RM,D) < 101 OR DR(RM,D) > 200 THEN 4200
+ 4060  PRINT "The door ";: IF D < 9 THEN  PRINT "to the ";
+ 4070  PRINT DI$(D)" is locked.": PRINT : RETURN 
+ 4200  REM --> SPECIAL DOORS HERE <--
+ 4210  IF DR(RM,D) = 100 THEN 39000: REM HOME
+ 4250  IF DR(RM,D) > 200 AND DR(RM,D) < 300 THEN  PRINT "The door refuses to open.": RETURN 
+ 4300  IF RM = 15 AND  NOT ZZ(5) THEN  PRINT "The branches and vines wrapped around you prevent your escape (er, retreat).": RETURN 
+ 4310  IF RM = 2 AND CR(2) = 2 AND D <  > 9 THEN  PRINT "The Tar won't let you just walk away!": RETURN 
+ 4320  IF RM = 1 AND D <  > 3 AND  NOT ZZ(8) AND CR(1) = 1 THEN  PRINT "The Vender kindly asks you to pay a 15GP fee to enter the jungle.": RETURN 
+ 4800 RM = DR(RM,D)
+ 4810 V =  PEEK (37) + 1: VTAB 1: HTAB 5: INVERSE : PRINT RN$(RM); TAB( 42)" ";: NORMAL 
+ 4820  VTAB V: HTAB 1: PRINT 
+ 4830  PRINT RN$(RM):NV(RM) = NV(RM) + 1: IF (NV(RM) = 1 AND  NOT SB) OR VR THEN  GOSUB 700: GOTO 4850
+ 4840  GOSUB 720: REM IF VISITED BEFORE, JUST LIST OBJECTS
+ 4850  IF CP < 1 OR (ZZ(2) AND ZZ(2) / 2 =  INT (ZZ(2) / 2)) THEN CP = 0: GOTO 4900
+ 4855  FOR I = 1 TO CP:C = CP(I):A = CD(C) +  INT (CH / 3) - 4: IF A > 3 OR A <  - 3 THEN 4870
+ 4860 CP(I) = CP(CP):CP = CP - 1: NEXT : GOTO 4900
+ 4870 A$ = CN$(C): GOSUB 870: IF CH(C) < 3 THEN  PRINT A$" was too weak to follow you.": GOTO 4860
+ 4873  IF C = 14 OR C = 12 OR C = 32 THEN 4860
+ 4874  IF C = 2 THEN  PRINT "The tar squorshles at you angrily as you pull yourself into the trees.": GOTO 4860
+ 4880 CR(C) = RM: PRINT "     "A$" ";: IF A < 0 THEN  PRINT "pursues you.": GOTO 4890
+ 4881  ON  INT (4 *  RND (1) + 1) GOTO 4882,4884,4886,4888
+ 4882  PRINT "follows you.": GOTO 4890
+ 4884  PRINT "sticks with you.": GOTO 4890
+ 4886  PRINT "is close on your heels.": GOTO 4890
+ 4888  PRINT "keeps up with you."
+ 4890  NEXT 
+ 4900 MV = 1: REM  USE TO KNOW WHEN YOU'VE JUST MOVED
+ 4950  FOR I = 1 TO NC: IF CR(I) <  > RM THEN  NEXT : RETURN 
+ 4960 CP(CP + 1) = 0: FOR J = 1 TO CP: IF CP(J) <  > I THEN  NEXT :CP = CP + 1:CP(CP) = I: NEXT : RETURN 
+ 4970 J = CP + 1: NEXT : NEXT : RETURN 
+ 4990  RETURN 
+ 5000  REM 
+
+**** INVENTORY ****
+
+
+ 5010  PRINT "You are carrying:"
+ 5020  IF  NOT CR AND  NOT GP THEN  PRINT "   Zilch!!!"
+ 5030  IF CR AND  NOT GP THEN  PRINT "   -No money"
+ 5040  IF GP THEN  PRINT "   -"GP" G.P."
+ 5100  FOR O = 1 TO NO: IF OL(O) = 101 THEN A$ = OB$(O): GOSUB 870: PRINT "   -";A$: GOTO 5200
+ 5110  IF OL(O) = 102 THEN A$ = OB$(O): GOSUB 870: PRINT "   -"A$" (being worn)": GOTO 5200
+ 5170  IF O = RW THEN  VTAB  PEEK (37): PRINT "   -"A$" (ready weapon)"
+ 5190  NEXT : RETURN 
+ 5200  IF OT(O) <  > 1 THEN 5170
+ 5210 Z = 0: FOR X = 1 TO NO: REM  SEARCH FOR CONTAINED OBJECTS
+ 5220  IF OL(X) <  > 200 + O THEN  NEXT : GOTO 5190
+ 5230  IF  NOT Z THEN A$ = OB$(O): GOSUB 850: PRINT "It looks like the "A$" contains:":Z = 1
+ 5240 A$ = OB$(X): GOSUB 870: PRINT "     -"A$: NEXT : GOTO 5190
+ 6000  REM 
+
+**** LOOK ****
+
+
+ 6010  IF S$ = "" AND OP$ = "" THEN 6200
+ 6015  IF S$ = "" THEN S$ = OP$:S = OP
+ 6016  IF P$ = "IN" OR P$ = "INSIDE" OR P$ = "INTO" THEN 6100
+ 6018  IF S > 100 THEN S = S - 100: GOTO 6030
+ 6020  IF  FN C(S) THEN R = S:F$ = OD$: GOTO 600: REM  DESCRIBE OBJECT
+ 6030  FOR I = 1 TO NC: IF CN$(I) <  > S$ THEN  NEXT :A$ = S$: GOSUB 850: PRINT "You can't see any "A$" here!": RETURN 
+ 6040  IF CR(I) = RM THEN R = I:F$ = CD$: GOTO 600: REM  DESCRIBE CHARACTER
+ 6050 A$ = S$: GOSUB 870: PRINT "You can't see "A$" here!": RETURN 
+ 6100  REM  LOOK INSIDE CONTAINER
+ 6110 Z = 0:A$ = S$: GOSUB 850: PRINT "It looks like the "A$" contains:"
+ 6120  FOR I = 1 TO NO: IF OL(I) = 200 + S THEN A$ = OB$(I): GOSUB 850: PRINT  TAB( 7)"-"A$:Z = 1
+ 6130  NEXT : IF  NOT Z THEN  PRINT  TAB( 7)" Zilch!!!"
+ 6140  RETURN 
+ 6200  FOR D = 1 TO 10: IF DR(RM,D) =  > 0 THEN  NEXT : GOTO 6500: REM   SEARCH FOR SECRET DOORS  
+ 6210  REM --> SPECIAL SECRET DOORS HERE <--
+ 6440 SN = SN + 20 +  INT (50 *  RND (1) + 1)
+ 6450  IF D < 9 THEN  PRINT "You find a secret door to the "DI$(D)"!": PRINT 
+ 6455  IF D > 8 THEN  PRINT "You find a secret door "DI$(D)"!": PRINT 
+ 6460 DR(RM,D) =  ABS (DR(RM,D)):D = 11: NEXT 
+ 6500  FOR I = 1 TO NO: IF OL(I) <  >  - RM THEN  NEXT : GOTO 6900: REM  SEARCH FOR HIDDEN OBJECTS 
+ 6510  REM --> SPECIAL HIDDEN OBJECTS HERE <--
+ 6840 SN = SN + 20 + OV(I) / 2
+ 6850  PRINT "You found something!":OL(I) = RM:OS(I) = 1:R = I:F$ = OD$: GOSUB 600
+ 6860 I = NO + 1: NEXT I: RETURN 
+ 6900  GOTO 700: REM  DESCRIBE ROOM
+ 7000  REM 
+
+**** WEAR ****
+
+
+ 7010  IF S$ = "" THEN  GOSUB 800
+ 7020  IF OL(S) = 102 THEN  PRINT "You're already wearing that.": RETURN 
+ 7030  IF  NOT  FN C(S) THEN  PRINT "There's no such item nearby!": RETURN 
+ 7040  IF OT(S) <  > 2 THEN  PRINT "You can't wear that.": RETURN 
+ 7045  IF O2(S) < 6 THEN 7060
+ 7050  FOR I = 1 TO NO: IF OL(I) <  > 102 OR OT(I) <  > 2 OR O2(I) < 6 THEN  NEXT : GOTO 7100
+ 7055 I = NO + 1: NEXT :A$ = S$: GOSUB 850: PRINT "The "A$" won't fit over what you're already wearing.": RETURN 
+ 7060  IF O2(S) < 5 THEN 7100
+ 7070  FOR I = 1 TO NO: IF OT(I) <  > 2 OR O2(I) <  > 5 THEN  NEXT : GOTO 7100
+ 7080 I = NO + 1: NEXT : PRINT "You're already using a shield.": RETURN 
+ 7100  REM --> SPECIAL EFFECTS OF WEARING <--
+ 7940  IF OT(S) = 2 THEN AC = AC + O1(S):EN = EN + O2(S): REM ARMOUR
+ 7950 A$ = OB$(S): GOSUB 850: PRINT "Okay, you're now wearing the "A$"."
+ 7955  IF OL(S) = RM THEN CR = CR + 1
+ 7960 OL(S) = 102: RETURN 
+ 8000  REM 
+
+**** REMOVE ****
+
+
+ 8010  IF S$ = "" THEN  GOSUB 800
+ 8020  IF OL(S) <  > 102 THEN  PRINT "You're not wearing that.": RETURN 
+ 8100  REM --> SPECIAL EFFECTS OF REMOVING <--
+ 8940  IF OT(S) = 2 THEN AC = AC - O1(S):EN = EN - O2(S): REM ARMOUR
+ 8950 A$ = OB$(S): GOSUB 850: PRINT "Okay, you're no longer wearing the "A$"."
+ 8960 OL(S) = 101: RETURN 
+ 9000  REM 
+
+**** UNLOCK ****
+
+
+ 9010  IF S$ <  > "DOOR" THEN A$ = "Sorry, but Zeus has forbidden earthlings to unlock anything but doors, until they all promise to be nice for a change.": GOTO 100
+ 9020  FOR D = 1 TO 10: IF DR(RM,D) < 100 OR DR(RM,D) > 200 THEN  NEXT : PRINT "None of the doors here are locked!": RETURN 
+ 9030  FOR I = 1 TO NO: IF O1(I) <  > RM THEN  NEXT : PRINT "There's no key to this door!": GOTO 9990
+ 9040  IF OL(I) <  > 101 THEN  PRINT "You don't have the key to this door.": GOTO 9980
+ 9100  REM --> SPECIAL EFFECTS OF UNLOCKING <--
+ 9950 DR(RM,D) = DR(RM,D) - 100
+ 9960  PRINT "Okay, the door ";: IF D < 9 THEN  PRINT "to the ";
+ 9970  PRINT DI$(D);" is unlocked."
+ 9980 I = NO + 1: NEXT I
+ 9990 D = 11: NEXT D: RETURN 
+ 10000  REM 
+
+**** FREE ****
+ 10010  IF S$ = "" THEN  INPUT "FREE WHOM? ";S$: GOSUB 300:S = WM
+ 10020  IF OT(S) <  > 7 THEN  PRINT "Nonsensical babbling is a classic symptom of a warped mind.": RETURN 
+ 10030  IF OL(S) <  > RM THEN A$ = S$: GOSUB 870: PRINT "You can't see "A$" here!": RETURN 
+ 10100  REM -> SPECIAL FREES <--
+ 10950  FOR I = 1 TO NC: IF CN$(I) <  > S$ THEN  NEXT : PRINT "Oops!  There's no character by that name!": RETURN 
+ 10960 CR(I) = RM:OL(S) = 0:CS(I) = CS(I) + 1:OB$(S) = OB$(S) + "*"
+ 10970 A$ = S$: GOSUB 870: PRINT A$" is now free!": RETURN 
+ 11000  REM 
+
+**** SELL ****
+
+
+ 11010  IF S$ = "" THEN  GOSUB 800
+ 11013  IF S > 100 THEN  GOSUB 900
+ 11015  IF  NOT  FN C(S) THEN A$ = S$: GOSUB 850: PRINT "You don't have the "A$"!": RETURN 
+ 11020  IF OP$ = "" THEN  PRINT "SELL "S$;: INPUT " TO WHOM? ";W$: GOSUB 300:OP$ = W$:OP = WM
+ 11023  IF OP < 100 THEN  PRINT "Think again, bonehead.": RETURN 
+ 11025  IF CR(OP - 100) <  > RM THEN A$ = OP$: GOSUB 870: PRINT "You can't see "A$" here!": RETURN 
+ 11030 A$ = OP$: GOSUB 870
+ 11100  REM 
+ 11110 C = OP - 100: REM  CHECK ALL CHARS THAT'LL BUY
+ 11120  IF C = 2 OR C = 6 OR C = 7 OR C = 12 OR C = 19 OR C = 21 THEN 11900
+ 11130 X =  INT (4 *  RND (1) + 1): ON X GOTO 11140,11150,11160,11170
+ 11140  PRINT "'No thanks.'": GOTO 11200
+ 11150  PRINT A$" isn't interested.": GOTO 11200
+ 11160  PRINT A$" doesn't seem to be in a buying mood.": GOTO 11200
+ 11170  PRINT "'Sorry,' admits "A$", 'I'm broke.'": GOTO 11200
+ 11200  RETURN 
+ 11900  REM  SELL ITEM
+ 11910  PRINT "'Good deal,' says "A$", handing you "OV(S)" G.P. for it."
+ 11920 GP = GP + OV(S):OL(S) = 200 + OP
+ 11930  RETURN 
+ 12000  REM **** BRIEF, SUPERBRIEF, & VERBOSE ****
+
+ 12010 SB = (V$ = "SUPERBRIEF"):VR = (V$ = "VERBOSE")
+ 12020 A$ = V$: GOSUB 870: PRINT A$" descriptions.": RETURN 
+ 13000  REM 
+
+**** BUY ****
+ 13010  IF S$ = "" THEN  GOSUB 800
+ 13015  IF S > 100 THEN  GOSUB 900
+ 13020  IF OL(S) = 101 OR OL(S) = 102 OR OL((OL(S) - 200) * (OL(S) > 200 AND OL(S) < 300)) = 101 THEN  PRINT "You've already got that!": RETURN 
+ 13030  IF OP$ = "" THEN OP = (OL(S) - 300) * (OL(S) > 300):OP$ = CN$(OP): IF OP = 0 THEN  PRINT "Nobody here seems to have any.": RETURN 
+ 13035  IF OP > 100 THEN OP = OP - 100
+ 13040 A$ = OP$: GOSUB 870: IF CR(OP) <  > RM THEN  PRINT "You can't see "A$" here!": RETURN 
+ 13050  IF (OL(S) - 300) * (OL(S) > 300) <  > OP THEN  PRINT A$" doesn't seem to have any.": RETURN 
+ 13060  IF OI(S) > GP THEN A$ = "When " + A$ + " sees that you don't have enough money, he becomes very angry and tells you kindly to stick a tree up your nose and light it.": GOTO 100
+ 13950  PRINT "'Good deal,' "A$" says, taking your money."
+ 13960 OL(S) = 101:GP = GP - O1(S): RETURN 
+ 13999  RETURN 
+ 14000  REM 
+
+**** SAY OR CHANT ****
+
+
+ 14020  IF  LEFT$ (S$,1) = QT$ THEN S$ =  MID$ (S$,2)
+ 14030  IF  RIGHT$ (S$,1) = QT$ THEN S$ =  LEFT$ (S$, LEN (S$) - 1)
+ 14040  IF  RIGHT$ (S$,1) = "." OR  RIGHT$ (S$,1) = "!" OR  RIGHT$ (S$,1) = "?" THEN S$ =  LEFT$ (S$, LEN (S$) - 1)
+ 14100  REM --> SPECIA
+                                                                                                                                                                                                     
