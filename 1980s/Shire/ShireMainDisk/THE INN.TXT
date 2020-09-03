@@ -1,0 +1,176 @@
+
+ 1  GOTO 10
+ 5  PRINT  CHR$ (4)"SAVETHE INN": END 
+ 10  REM 
+
+  THE INN  
+
+(THE SHIRE STARTUP PROGRAM)
+
+
+ 11  REM  BY JOE STROUT
+
+
+ 15 R =  RND (15)
+ 20  TEXT : HOME :D$ =  CHR$ (4): NORMAL : PRINT : PRINT D$"PR#3"
+ 30 Q$ =  CHR$ (34)
+ 40  DEF  FN D1(S) =  INT (S *  RND (1) + 1): DEF  FN D2(S) =  FN D1(S) +  FN D1(S): DEF  FN D3(S) =  FN D2(S) +  FN D1(S): DEF  FN D4(S) =  FN D2(S) +  FN D2(S)
+ 90  GOTO 1000
+ 100  REM   CENTER STRING A$
+ 110  HTAB 40 -  LEN (A$) / 2: PRINT A$: RETURN 
+ 150  REM   PRESS ANY KEY
+ 160  VTAB 23:A$ = "<<  Press any key to continue.  >>": GOSUB 100: WAIT 49152,128: GET K$: VTAB 23:A$ = "                                  ": GOTO 100
+ 999  END 
+ 1000  REM 
+
+  MAIN PROGRAM
+
+
+ 1010  PRINT : PRINT "GREETINGS!": VTAB 6: PRINT "    Welcome to ";: INVERSE : PRINT "the Shire";: NORMAL : PRINT ", the greatest fantasy role-playing game": PRINT : PRINT "in middle earth!"
+ 1015  PRINT : PRINT 
+ 1020  PRINT : PRINT : PRINT "   You are at the registration desk of the Good Knight Inn.  Many adventurers": PRINT "of all types loll about the room, talking, laughing, and drinking ale.  You"
+ 1030  PRINT "long to join them, but you know that first you must register with the man behindthe desk.": PRINT : ON  INT (4 *  RND (1) + 1) GOTO 1040,1045,1050,1055
+ 1040  PRINT Q$"What be your name?"Q$" the man asks.": GOTO 1060
+ 1045  PRINT Q$"An' jes' what might yer name be?"Q$: GOTO 1060
+ 1050  PRINT "The man asks you to tell him your name.": GOTO 1060
+ 1055  PRINT "The man poises his quill over his book, and looks at you expectantly.": PRINT "(Tell the nice man your name now.)"
+ 1060  PRINT : POKE 49168,0: INPUT "==> ";CN$: IF CN$ = "" THEN  PRINT  CHR$ (7): GOTO 1050
+ 1100  REM  SEARCH FILE FOR NAME CN$
+ 1110  PRINT : ONERR  GOTO 1160
+ 1120  PRINT D$"VERIFY"CN$
+ 1130  PRINT "  "Q$"All right,"Q$" nods the man, "Q$"Go ahead.  And hey - let's be careful": PRINT "out there!"Q$
+ 1140  PRINT : POKE 216,0: GOTO 2600
+ 1160  IF  PEEK (222) = 6 THEN  POKE 216,0: GOTO 1200: REM   NEW CHAR
+ 1170  PRINT "OOPS! ERROR CODE #" PEEK (222)" IN THE 1100'S!": POKE 216,0: END 
+ 1200  IF A = 1 THEN 1500
+ 1210  PRINT : PRINT "Peering at you again, the man asks, "Q$"How's that name again?"Q$:A = 1: GOTO 1060
+ 1500  REM 
+
+  NEW VICTIM!
+
+
+ 1501  REM 
+  (ER, CHARACTER!)
+
+
+ 1505  HOME 
+ 1510  PRINT : PRINT "   The man looks up at you sharply, as if peering right through you.  He lets   out a short gasp, and points an accusing finger at you.  "Q$"We don't serve"
+ 1520  PRINT "your kind here!"Q$" he shouts, almost shaking with rage.": PRINT "  The room falls silent, all eyes on you.  Confused, you look down at yourself, and realize with a shock that you are nearly transparent: a ghost!"
+ 1530  PRINT "   You are quickly forced out by silver crosses thrust in your face, but you": PRINT "don't have much time to contemplate this before your surroundings change."
+ 1540  PRINT : PRINT "   A voice says, "Q$"Hey, Master, we've got another one of these bodiless souls    mucking about on the planet again.  They've been getting thick as maggots"
+ 1550  PRINT "lately.  Where're they all coming from?"Q$: PRINT "   "Q$"Another victim - er, adventurer!"Q$" a deep voice answers.  "Q$"Process him"
+ 1560  PRINT "like the others.  He'll be back here, soon enough..."Q$
+ 1570  GOSUB 150: HOME : PRINT "   The first voice again speaks.  "Q$"All right, you, we'll give you a": PRINT "body since you seem to want it so much.  First you must pick a race.": PRINT "Your choices are:": PRINT 
+ 1580  READ N: FOR I = 1 TO N: READ R$(I): REM  read attribute values too
+ 1581  DATA 6
+ 1582  DATA Human
+ 1583  DATA Elf
+ 1584  DATA Dwarf
+ 1585  DATA Half-Elf
+ 1586  DATA Half-Dwarf
+ 1587  DATA Half-Ogre
+ 1590  PRINT  TAB( 10)I". "R$(I): NEXT 
+ 1600  PRINT : PRINT "Which would you like to be? ";
+ 1610  GET A$:RC =  VAL (A$): IF RC < 1 OR RC > N THEN 1610
+ 1620  PRINT A$: PRINT : PRINT R$(RC)" it is then.": PRINT : PRINT "Now select a sex (either male or female, please) : ";
+ 1630  GET A$: IF A$ <  > "M" AND A$ <  > "F" AND A$ <  > "N" THEN 1630
+ 1640  IF A$ = "N" THEN  PRINT "Neither": PRINT : PRINT "Pervert!  You must be a male.":CS = 1: GOTO 1670
+ 1650  IF A$ = "F" THEN  PRINT "Female":CS = 0: GOTO 1670
+ 1660  PRINT "Male":CS = 1
+ 1670  PRINT : PRINT 
+ 1680  ON RC GOTO 1700,1750,1800,1850,1900,1950,2000,2050
+ 1700  REM 
+
+  HUMAN ATTRIBUTES
+
+
+ 1710 ST =  FN D3(6) + 5: IF  NOT CS THEN ST = ST - 1
+ 1720 IN =  FN D3(6) + 6:DX =  FN D3(6) + 7:CH =  FN D3(6) + 7: IF  NOT CS THEN CH = CH + 1: IF CH > 25 THEN CH = 25
+ 1730 CN =  FN D3(6) + 8: IF CN > 25 THEN CN = 25
+ 1733 WA(1) = 10:WA(2) =  - 20:WA(3) = 5:WA(4) = 15:WA(5) = 0
+ 1735  REM  ALL SPELL ABILITIES 0 FOR HUMANS
+ 1740  GOTO 2200
+ 1750  REM   
+
+ELVEN ATTRIBUTES
+
+ 1760 ST =  FN D3(6) + 4
+ 1770 IN =  FN D3(6) + 7:DX =  FN D3(6) + 7:CH =  FN D3(6) + 5: IF  NOT CS THEN CH = CH + 2: IF CH > 25 THEN CH = 25
+ 1780 CN =  FN D3(6) + 6
+ 1783 WA(1) =  - 5:WA(2) = 20:WA(3) = 0:WA(4) = 10:WA(5) =  - 5
+ 1787 SA(1) = 15:SA(2) = 5:SA(3) = 10:SA(4) = 10
+ 1790  GOTO 2200
+ 1800  REM 
+
+  DWARVEN ATTRIBUTES
+
+ 1810 ST =  FN D4(6) + 1: IF  NOT CS THEN ST = ST - 1
+ 1820 IN =  FN D3(6) + 5:DX =  FN D3(6) + 5:CH =  FN D3(6) + 4
+ 1830 CN =  FN D3(6) + 9: IF CN > 25 THEN CN = 25
+ 1833 WA(1) = 15:WA(2) =  - 20:WA(3) = 10:WA(4) = 5:WA(5) =  - 10
+ 1837 SA(1) =  - 20:SA(2) =  - 10:SA(3) =  - 15:SA(4) =  - 15
+ 1840  GOTO 2200
+ 1850  REM 
+
+  HALF-ELF ATTRIBUTES
+
+ 1860 ST =  FN D3(6) + 4: IF CS THEN ST = ST + 1
+ 1870 IN =  FN D3(6) + 7:DX =  FN D3(6) + 7:CH =  FN D3(6) + 6: IF  NOT CS THEN CH = CH + 2: IF CH > 25 THEN CH = 25
+ 1880 CN =  FN D3(6) + 7
+ 1883 WA(1) = 5:WA(2) = 0:WA(3) = 3:WA(4) = 13:WA(5) =  - 3
+ 1887 SA(1) = 7:SA(2) = 2:SA(3) = 5:SA(4) = 5
+ 1890  GOTO 2200
+ 1900  REM 
+
+  HALF-DWARF ATTRIBUTES
+
+ 1910 ST =  FN D4(6): IF  NOT CS THEN ST = ST - 1
+ 1920 IN =  FN D3(6) + 6:DX =  FN D3(6) + 6:CH =  FN D3(6) + 5: IF  NOT CS THEN CH = CH - 1
+ 1930 CN =  FN D3(6) + 9: IF CN > 25 THEN CN = 25
+ 1933 WA(1) = 13:WA(2) =  - 20:WA(3) = 7:WA(4) = 10:WA(5) = 5
+ 1937 SA(1) =  - 10:SA(2) =  - 5:SA(3) =  - 7:SA(4) =  - 8
+ 1940  GOTO 2200
+ 1950  REM 
+
+  HALF-OGRE ATTRIBUTES
+
+
+ 1960 ST =  FN D4(7) + 3: IF ST > 25 THEN ST = 25
+ 1970 IN =  FN D3(6):DX =  FN D3(6) + 3:CH =  FN D2(7)
+ 1980 CN =  FN D4(7): IF CN > 25 THEN CN = 25
+ 1983 WA(1) = 25:WA(2) =  - 35:WA(3) =  - 20:WA(4) = 15:WA(5) =  - 15
+ 1987 SA(1) =  - 20:SA(2) =  - 30:SA(3) =  - 30:SA(4) =  - 30
+ 1990  GOTO 2200
+ 2040  GOTO 2200
+ 2200  REM  PRINT ATTRIBUTES
+ 2210  PRINT : PRINT : PRINT : PRINT "Your attributes are: ": PRINT : PRINT "     Strength : "ST: PRINT " Intelligence : "IN: PRINT "    Dexderity : "DX: PRINT " Constitution : "CN: PRINT "     Charisma : "CH
+ 2215 A =  INT (CN / 5):HN = 5: FOR I = 1 TO A:HN = HN +  FN D1( INT (ST / 4)): NEXT : PRINT : PRINT "   Hit Points : "HN
+ 2220  PRINT : PRINT : PRINT : GOSUB 150: IF K$ =  CHR$ (27) THEN  HOME : PRINT "Some spirits are SO finicky!  Well, all right, I'll try again...": GOTO 1670
+ 2230 HP = HN:HE = 0:EX = 0:AG = 18:GP = IN * 3 + CH * 2:LV = 0
+ 2300  HOME : PRINT "Here's your self-portrait so far:": PRINT : PRINT : PRINT 
+ 2310  PRINT "Name: ";: INVERSE : PRINT CN$;: NORMAL : HTAB 27: PRINT "Race: ";R$(RC);: HTAB 59: PRINT "Sex: "; MID$ ("FemaleMale",1 + CS * 6,6): PRINT 
+ 2320  PRINT "     Strength : "ST: PRINT " Intelligence : "IN: PRINT "    Dexderity : "DX: PRINT " Constitution : "CN: PRINT "     Charisma : "CH
+ 2330  VTAB 7: HTAB 50: PRINT "Hit Points : "HP" / "HN: HTAB 49: PRINT "Armor Class : "AC: PRINT : HTAB 57: PRINT "Age : "AG: HTAB 54: PRINT "Health : Good"
+ 2400  PRINT : PRINT : PRINT "   Well, it's not much-"Q$" (and you hear a trace of pity in the": PRINT "sourceless voice) "Q$"but it will do.  I'll send you back to the Inn"
+ 2410  PRINT "in the Shire now."Q$
+ 2500  REM 
+
+   SAVE NEW CHARACTER ON DISK
+
+
+ 2510  PRINT D$"OPEN"CN$: PRINT D$"WRITE"CN$
+ 2520  PRINT CN$: PRINT RC","CS","AG","HE: PRINT HN","HP","AC: PRINT ST","IN","DX","CN","CH: PRINT EX","LV: PRINT GP","GB
+ 2530  PRINT WA(1)","WA(2)","WA(3)","WA(4)","WA(5): PRINT SA(1)","SA(2)","SA(3)","SA(4)
+ 2540  PRINT "0": REM  NO. OF POSSESSIONS
+ 2550  FOR I = 1 TO 20: PRINT "0": NEXT : REM  SPELLS KNOWN
+ 2590  PRINT D$"CLOSE"
+ 2600  REM 
+
+  SEND CHARACTER TO SHIRE
+
+
+ 2610  PRINT D$"OPENWHASISNAME": PRINT D$"DELETEWHASISNAME": PRINT D$"OPENWHASISNAME": PRINT D$"WRITEWHASISNAME"
+ 2620  PRINT CN$
+ 2630  PRINT D$"CLOSE"
+ 2640  PRINT : PRINT D$"EXECUTE"
+                                                                                                                                                       

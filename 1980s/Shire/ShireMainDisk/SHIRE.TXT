@@ -1,0 +1,479 @@
+
+ 1  HOME : IF  PEEK (103) <  > 6 OR  PEEK (104) <  > 64 THEN  POKE 16389,0: POKE 103,6: POKE 104,64: PRINT  CHR$ (4)"RUNSHIRE"
+ 2  GOTO 10
+ 5  PRINT  CHR$ (4)"SAVESHIRE": END 
+ 10  REM 
+ 15  DIM SB$(30),ST(30),SV(30),SW(30),S1(30),S2(30),SP$(20),SL(20),SD$(20),SP(20)
+ 20 D$ =  CHR$ (4): TEXT : HOME : PRINT D$"PR#3": HGR : POKE  - 16290,0: POKE  - 16299,0: CALL  - 3086:SH = 3072
+ 30  IF  NOT FL THEN  PRINT D$"BLOADASCII.FONT,A"SH: POKE 232,SH -  INT (SH / 256) * 256: POKE 233, INT (SH / 256)
+ 40  SCALE= 1: ROT= 0: VTAB 24: POKE 49234,0
+ 45  HCOLOR= 3
+ 50 PX = 44:PY = 7
+ 90  VTAB 24: GOTO 1000
+ 100  REM 
+
+PRINT CHAR A$ AT H,V 
+
+ 110 Q =  INT (H / 2): POKE 49236 + (Q = H / 2),0: DRAW ( ASC (A$) - 31) AT Q * 7 + HQ,V * 8: RETURN 
+ 115  REM  HQ = HORIZONTAL SHIFT, IN PIXELS
+ 200  REM 
+  PRINT STRING A$ AT H,V
+
+ 210 Q$ = A$: FOR I = 1 TO  LEN (Q$):A$ =  MID$ (Q$,I,1): GOSUB 110:H = H + 1: IF H < 80 THEN  NEXT :HQ = HQ + 0: RETURN 
+ 220 V = V + 1:H = 0: NEXT :HQ = 0: RETURN 
+ 250  REM 
+
+  PRINT STRING A$ IN ** BOLDFACE **
+
+ 260 VV = V:HH = H:HQ = 0: GOSUB 200:H = HH:V = VV:HQ = 1:A$ = Q$: GOSUB 200:HQ = 0: RETURN 
+ 300  REM 
+
+  PRINT STRING A$ IN ** INVERSE **
+
+ 310 AA$ = A$:HH = H:VV = V:CC =  PEEK (228)
+ 320 A$ = "": FOR I = 1 TO  LEN (AA$):A$ = A$ + "": NEXT : GOSUB 200: HCOLOR= 0:A$ = AA$:H = HH:V = VV: GOSUB 200: POKE 228,CC
+ 330  RETURN 
+ 500  REM 
+  DRAW BUILDING, LEFT SIDE OF CENTER
+ 501  REM  NEEDS X,Y,H,W,D
+ 510  POKE 49236,0: HPLOT X,Y TO X + W,Y TO X + W,Y - H TO X,Y - H TO X,Y
+ 520  POKE 49237,0: HPLOT X + 7,Y TO X + W + 6,Y: HPLOT X + 7,Y - H TO X + W + 6,Y - H
+ 530  POKE 49236,0: HPLOT X + W,Y TO X + W + 6,Y - D TO X + W + 6,Y - H - D TO X + W,Y - H
+ 540  HPLOT X,Y - H TO X + 6,Y - H - (D / 2): POKE 49237,0: HPLOT X + 7,Y - H - (D / 2) TO X + 14,Y - H - D
+ 550  HCOLOR= 0: HPLOT X + 14,Y - H - D + 1: HCOLOR= 3: HPLOT X + 14,Y - H - D TO X + W + 6,Y - H - D
+ 560  POKE 49236,0: HPLOT X + 7,Y - H - D TO X + W + 6,Y - H - D
+ 590  RETURN 
+ 600  REM 
+   DRAW BUILDING, RIGHT SIDE OF CENTER
+ 601  REM  NEEDS X,Y,H,W,D
+ 602  REM  (LET T = 1 FOR TEMPLE; ONLY DRAWS FRONT & SIDE)
+ 610  POKE 49236,0: HPLOT X,Y TO X + W,Y TO X + W,Y - H TO X,Y - H TO X,Y: POKE 49237,0: HPLOT X + 7,Y TO X + W + 6,Y: HPLOT X + 7,Y - H TO X + W + 6,Y - H: REM  NEAR FACE
+ 620  HPLOT X + 6,Y TO X + 1,Y - D TO X + 1,Y - H - D: IF T THEN T = 0: RETURN 
+ 625  HPLOT  TO X + 6,Y - H: REM   SIDE  
+ 630  HPLOT X + W + 6,Y - H TO X + W,Y - H - (D / 2): POKE 49236,0: HPLOT X + W - 1,Y - H - (D / 2) TO X + W - 7,Y - H - D: REM  TOP RIGHT EDGE
+ 640  HPLOT  TO X,Y - H - D: POKE 49237,0: HPLOT X + 1,Y - H - D TO X + W - 1,Y - H - D: REM  TOP BACK EDGE 
+ 650  RETURN 
+ 700  REM 
+
+  CENTER A$ ON TEXT SCREEN
+
+
+ 710  HTAB 40 -  LEN (A$) / 2: PRINT A$: RETURN 
+ 750  REM 
+
+  PRESS ANY KEY TO CON'T, TEXT SCREEN
+ 760 A$ = "<<  PRESS ANY KEY TO CONTINUE  >>": VTAB 23: GOSUB 700: WAIT 49152,128: GET A$:A$ = "                                 ": VTAB 23: GOTO 700
+ 999  END 
+ 1000  REM 
+
+   DRAW SHIRETOWN
+
+
+ 1010 X = 7 * 7:Y = 152:H = 18:W = 49:D = 13: GOSUB 500:A$ = "the":H = 20:V = 17: GOSUB 200:A$ = "Archives":H = 18:V = 18: GOSUB 200
+ 1020 X = 10 * 7:Y = 115:H = 25:W = 35:D = 15: GOSUB 500:A$ = "Gen.":H = 25:V = 11.8: GOSUB 200:A$ = "Store":H = 24:V = 12.8: GOSUB 200
+ 1030 X = 70:Y = 70:W = 42:H = 18:D = 17: GOSUB 500:A$ = "Bank":H = 25:V = 7.3: GOSUB 200
+ 1040 A$ = "The Shire":V = 1:H = 36: GOSUB 250
+ 1050 X = 161:Y = 72:W = 42:H = 27:D = 15: GOSUB 600:A$ = "the Good":H = 49:V = 6: GOSUB 200:A$ = "Knight":H = 50:V = 7: GOSUB 200:A$ = "Inn":H = 52:V = 8: GOSUB 200
+ 1060 X = 175:Y = 120:H = 20:W = 35:D = 15:T = 1: GOSUB 600
+ 1065  HPLOT X + 1,Y - H - D TO X + 5,Y - H - D - 3 TO X + 5,Y - H - 10: HPLOT X + 6,Y - H - 10 TO X + 6,Y - H
+ 1070  HPLOT X + W + 6,Y - H TO X + W + 6,Y - H - 10: HPLOT X + W + 5,Y - H - 10 TO X + W + 5,Y - H - D - 3 TO X + 5,Y - H - D - 3
+ 1075  POKE 49236,0: HPLOT X,Y - H - D - 3 TO X + W - 1,Y - H - D - 3:A$ = "Temple":H = 53:V = 13.3: GOSUB 200
+ 1080 X = 52:Y = 16:A$ = "{      {":H = X:V = Y: GOSUB 200:A$ = "   {":H = X:V = Y + 1: GOSUB 200
+ 1085 A$ = " Cemetary":H = X:V = Y + 2: GOSUB 200:A$ = " {   {     {":H = X:V = Y + 3: GOSUB 200:A$ = "  {     {":H = X:V = Y + 4: GOSUB 200
+ 1090 H = 38:V = 4:A$ = "_____": GOSUB 200:H = 39:V = 5:A$ = "|  |": GOSUB 200:H = 39:V = 5.5:A$ = "| |": GOSUB 200: HCOLOR= 2:A$ = "":H = 40:V = 5.5: GOSUB 100
+ 1100  HCOLOR= 3:H = 9:V = 4:A$ = "^": GOSUB 200:H = 8:V = 5:A$ = "<+>": GOSUB 200:H = 9:V = 6:A$ = "@": GOSUB 200
+ 1110 H = 9:V = 3:B$ = "I": GOSUB 1500:H = 7:V = 5:B$ = "J": GOSUB 1500:H = 11:V = 5:B$ = "K": GOSUB 1500:H = 9:V = 7:B$ = "M": GOSUB 1500
+ 1120 H = 65:V = 4:A$ = " ESC ": GOSUB 300:A$ = " to view": GOSUB 200:H = 65:V = 5.3:A$ = "self-portrait": GOSUB 200
+ 1190  GOTO 1990
+ 1500 A$ = "": GOSUB 100: HCOLOR= 0:HQ = 1:A$ = B$: GOSUB 100:HQ = 0: HCOLOR= 3: RETURN 
+ 1990 CC = 2: GOSUB 30000
+ 2000  REM 
+
+   MAIN LOOP
+
+
+ 2005 H = PX:V = PY:A$ = ";": HCOLOR= 3: GOSUB 100
+ 2010 CC = CC + 1: HCOLOR= CC:A$ = "":H = 40:V = 5.5: GOSUB 100: IF CC > 6 THEN CC = 0
+ 2015 K =  PEEK (49152): IF K < 128 THEN 2010
+ 2020  GET K$: IF K$ >  = "a" THEN K$ =  CHR$ ( ASC (K$) - 32)
+ 2021  IF K$ <  > "I" AND K$ <  > "J" AND K$ <  > "K" AND K$ <  > "M" AND K$ <  >  CHR$ (27) AND K$ <  >  CHR$ (19) THEN 2010
+ 2023  IF K$ =  CHR$ (19) THEN SN =  NOT SN: GOTO 2000
+ 2025  IF K$ =  CHR$ (27) THEN 4000
+ 2030 X = PX + (K$ = "K") - (K$ = "J"):Y = PY + (K$ = "M") - (K$ = "I"): IF X > 33 AND X < 46 AND Y > 5 AND Y < 22 THEN 2060
+ 2031  IF Y < 6 AND X = 40 THEN 5000
+ 2033  IF Y > 5 AND Y < 9 AND X < 34 THEN 6000
+ 2035  IF Y > 5 AND Y < 9 AND X > 45 THEN 7000
+ 2037  IF Y < 12 OR Y > 14 THEN 2045
+ 2039  IF X < 32 THEN 8000
+ 2041  IF X > 49 THEN 9000
+ 2043  GOTO 2060
+ 2045  IF Y < 17 OR Y > 18 THEN 2050
+ 2047  IF X < 30 THEN 10000
+ 2048  IF X > 50 THEN 11000
+ 2049  GOTO 2060
+ 2050  IF Y > 15 AND X > 50 THEN 11000
+ 2052  IF Y < 6 OR Y > 20 OR (Y < 15 AND X < 32) OR (Y < 15 AND X > 49) OR X < 30 OR X > 50 THEN 2010
+ 2060 U =  PEEK (49200 - SN) +  PEEK (49200 - SN): HCOLOR= 0:H = PX:V = PY:A$ = ";": GOSUB 100: HCOLOR= 3:H = X:V = Y: GOSUB 100:U =  PEEK (49200 - SN) +  PEEK (49200 - SN) ^ 3
+ 2070 PX = X:PY = Y: GOTO 2010
+ 2970  FOR J = 1 TO 1000: NEXT 
+ 2990  IF  PEEK (49152) > 128 THEN  POKE 49168,0: GOTO 9350
+ 4000  REM 
+
+  CHARACTER DESCRIPTION
+
+
+ 4010  TEXT : HOME : PRINT 
+ 4030  PRINT "Name: ";: INVERSE : PRINT CN$;: NORMAL : HTAB 27: PRINT "Race: ";RC$;: HTAB 59: PRINT "Sex: "; MID$ ("FemaleMale",1 + CS * 6,6): PRINT 
+ 4040  PRINT "     Strength : "ST: PRINT " Intelligence : "IN: PRINT "    Dexderity : "DX: PRINT " Constitution : "CN: PRINT "     Charisma : "CH
+ 4050  VTAB 4: HTAB 50: PRINT "Hit Points : "HP" / "HN: HTAB 49: PRINT "Armor Class : "AC: PRINT : HTAB 57: PRINT "Age : "AG: HTAB 54: PRINT "Health : "HE$
+ 4060  VTAB 10: PRINT "   Experience : "EX: PRINT "        Level : "LV
+ 4070  PRINT "       Needed : " INT ((LV + 1) ^ 2 * 1000)
+ 4080  VTAB 10: HTAB 48: PRINT "Gold in Hand : "GP: HTAB 48: PRINT "Gold in Bank : "GB
+ 4090  VTAB 14: PRINT  TAB( 50)"Magic Abilities:": FOR I = 1 TO 4: PRINT  TAB( 52)"Type "I" : "SA(I)"%": NEXT 
+ 4100  VTAB 14: PRINT  TAB( 9)"Weapon Abilities:": PRINT  TAB( 13)"Axe/Club : "WA(1)"%": PRINT  TAB( 18)"Bow : "WA(2)"%": PRINT  TAB( 11)"Mace/Sling : "WA(3)"%
+ 4110  PRINT  TAB( 16)"Spear : "WA(4)"%": PRINT  TAB( 16)"Sword : "WA(5)"%"
+ 4150  PRINT : PRINT "Possessions: ";: IF  NOT NP THEN  PRINT "NONE": GOTO 4180
+ 4160  FOR I = 1 TO NP: PRINT OB$(I);: IF I <  > NP THEN  PRINT ", ";: IF  PEEK (1403) +  LEN (OB$(I + 1)) > 75 THEN  PRINT 
+ 4170  NEXT 
+ 4180  REM 
+ 4200 A = 0: FOR I = 1 TO 20:A = A +  SGN (SP(I)): NEXT : IF A = 0 THEN 4990
+ 4210  GOSUB 750: HOME : PRINT : PRINT "You know the following spells: "
+ 4220  VTAB 5: PRINT "Type I": FOR I = 1 TO 5: IF SP(I) THEN  PRINT  TAB( 3)SP$(I)" ("SP(I)"%)"
+ 4230  NEXT : VTAB 12: PRINT "Type II": FOR I = 6 TO 10: IF SP(I) THEN  PRINT  TAB( 3)SP$(I)" ("SP(I)"%)"
+ 4240  NEXT : VTAB 5: HTAB 40: PRINT "Type III": FOR I = 11 TO 15: IF SP(I) THEN  HTAB 43: PRINT SP$(I)" ("SP(I)"%)"
+ 4250  NEXT : VTAB 12: HTAB 40: PRINT "Type IV": FOR I = 16 TO 20: IF SP(I) THEN  HTAB 43: PRINT SP$(I)" ("SP(I)"%)"
+ 4260  NEXT 
+ 4990  GOSUB 750: POKE 49232,0: GOTO 2000
+ 5000  REM 
+
+   PORTAL; BEGIN ADVENTURE
+
+
+ 5005  ONERR  GOTO 5010
+ 5010  TEXT : HOME :A$ = " THE PORTAL ": PRINT : INVERSE : GOSUB 700: NORMAL 
+ 5015  PRINT : PRINT D$"DELETE"CN$
+ 5020  VTAB 10:A$ = "Insert Shire Adventure Disk in drive 1.": GOSUB 700: PRINT 
+ 5030  HTAB 17: PRINT "Press <C> to continue or <ESC> to exit: ";
+ 5040  GET A$: IF A$ <  > "C" AND A$ <  >  CHR$ (27) THEN 5040
+ 5050  IF A$ =  CHR$ (27) THEN  POKE 49232,0: GOTO 2000
+ 5060  PRINT "Continue": VTAB 20: PRINT "GOOD LUCK, "CN$"!"
+ 5070  PRINT D$"VERIFYPARSER": POKE 216,0
+ 5500  REM   HERE WE GO!
+ 5560  PRINT : PRINT D$"OPENPLAYER": PRINT D$"DELETEPLAYER": PRINT D$"OPENPLAYER": PRINT D$"WRITEPLAYER"
+ 5570  GOSUB 29520
+ 5580  PRINT D$"EXECGO": END 
+ 5990  GOSUB 750: POKE 49232,0: GOTO 2000
+ 6000  REM 
+
+  BANK
+
+
+ 6010 Q$ =  CHR$ (34): TEXT : HOME :A$ = " BANK ": PRINT : INVERSE : GOSUB 700: NORMAL 
+ 6020  PRINT : PRINT : PRINT "  The banker, P. Cunia, is sitting behind his desk when you come in, but": PRINT "rises to shake you hand.  "Q$"Hello, ";: IF CS THEN  PRINT "sir";: GOTO 6030
+ 6025  PRINT "m'lady";
+ 6030  PRINT "!  What can I do for you?"Q$: PRINT 
+ 6040  PRINT : PRINT "Select <D>eposit, <W>ithdrawal, or <L>eave : ";
+ 6050  GET A$: IF A$ <  > "D" AND A$ <  > "W" AND A$ <  > "L" THEN 6050
+ 6060  PRINT A$: PRINT : IF A$ = "L" THEN 6990
+ 6070  IF A$ = "W" THEN 6500
+ 6100  PRINT "   "Q$"Good, good!"Q$" smiles the banker.  "Q$"How much will we have the pleasure": PRINT "of protecting for you?"Q$
+ 6110  PRINT : PRINT "Enter amount to deposit, 0 - "GP;: INPUT " ==> ";A: IF A > GP THEN  PRINT : PRINT "You only have "GP" gold pieces!": GOTO 6110
+ 6120  PRINT : IF A < 1 THEN  PRINT Q$"Changed your mind?  Oh, well, if you ever do want to put some money away": PRINT "for safekeeping, I'll be here!": GOTO 6400
+ 6130 GP = GP - A:GB = GB + A: PRINT "The banker smiles widely as he takes your gold.  "Q$"Always a pleasure": PRINT "doing business with you!"Q$
+ 6400  PRINT : PRINT "   The banker stands to shake your hand as you leave.  "Q$"Thank you for": PRINT "stopping by,"Q$" he says, "Q$"and come again soon!"Q$: PRINT : PRINT : GOTO 6990
+ 6500  REM  WITHDRAWAL
+ 6510  PRINT "   The banker just barely fails to hide a look of disappointment.": PRINT Q$"Oh, okay,"Q$" he mumbles as he checks his books";: FOR I = 1 TO 4: FOR J = 1 TO 500: NEXT : PRINT ".";: NEXT 
+ 6520  IF GB = 0 THEN 6700
+ 6530  PRINT : PRINT Q$"You have "GB" gold pieces in safekeeping here at the bank,"Q$" he says": PRINT "at last.  "Q$"How much to you want to withdraw?"Q$
+ 6540  PRINT : PRINT "Enter amount to withdraw, 0 - "GB;: INPUT " ==> ";A: IF A > GB THEN  PRINT : PRINT Q$"I don't give loans!"Q$"  Mr. Cunia growls.": GOTO 6540
+ 6545  PRINT : IF A < 1 THEN  PRINT Q$"Oh, decided to keep your money safe, eh?"Q$"  Well, good.": GOTO 6400
+ 6550 GP = GP + A:GB = GB - A: PRINT "Carefully counting the coins, the banker finally passes them over to you.": GOTO 6400
+ 6700  PRINT : PRINT "Finally he looks up again.  "Q$"I'm sorry,"Q$" he says, not looking the least": PRINT "bit sorry, "Q$"but you don't have an account with us at this time.  But"
+ 6710  PRINT "remember, we will always accept deposits, and keep them safe!"Q$: GOTO 6400
+ 6990  GOSUB 750: POKE 49232,0: GOTO 2000
+ 7000  REM 
+
+  THE GOOD KNIGHT INN
+
+
+ 7010  TEXT : HOME :A$ = " THE GOOD KNIGHT INN ": PRINT : INVERSE : GOSUB 700: NORMAL 
+ 7020 A$ = "Thank you and good knight.": VTAB 13: GOSUB 700
+ 7030  GOSUB 29500: REM  SAVE CHARACTER
+ 7040  VTAB 23: END 
+ 7990  GOSUB 750: POKE 49232,0: GOTO 2000
+ 8000  REM 
+
+  GENERAL STORE
+
+
+ 8010  TEXT : HOME :A$ = " GENERAL STORE ": PRINT : INVERSE : GOSUB 700: NORMAL 
+ 8015 Q$ =  CHR$ (34)
+ 8020  PRINT : PRINT : PRINT "    Finn Agle, the proprietor at the store, rushes up to you with a wide smile": PRINT "on his face.  "Q$"Come in, come in!"Q$" he urges you.  "Q$"Glad to see you!"Q$
+ 8030  PRINT : PRINT "He asks, "Q$"Do you wanna <B>uy or <S>ell?"Q$" ";
+ 8040  GET A$: IF A$ <  > "B" AND A$ <  > "S" THEN 8040
+ 8050  IF A$ = "B" THEN  PRINT "Buy": GOTO 8500
+ 8060  PRINT "Sell"
+ 8070  PRINT : PRINT : IF NP THEN 8100
+ 8080  PRINT "    Mr. Agle seems disappointed when he sees you don't really have any thing": PRINT "to sell.  (Don't even think of prostitution -- the penalty in the Shire for thatis amputation!)"
+ 8085  PRINT 
+ 8090  GOTO 8900
+ 8100  REM 
+ 8200  PRINT : PRINT : FOR I = 1 TO NP: PRINT  TAB( 10)I". "OB$(I): NEXT : PRINT 
+ 8210  PRINT Q$"Whattaya wanna sell (1-"NP")?"Q$"  ";
+ 8220  GET A$: IF (A$ < "1" OR A$ >  STR$ (NP)) AND A$ <  >  CHR$ (27) THEN 8220
+ 8225  IF A$ =  CHR$ (27) THEN  PRINT "Never mind": GOTO 8900
+ 8230 S =  VAL (A$): PRINT S" - "OB$(S)
+ 8250  PRINT : PRINT "    The storekeeper looks over the item you show him, inspecting it": PRINT "carefully..";: FOR I = 1 TO 5: FOR J = 1 TO 500: NEXT : PRINT ".";: NEXT : PRINT : PRINT 
+ 8260 P =  INT (OV(S) * (.75 + CH / 100) +  INT (5 *  RND (1) - 2))
+ 8265  IF OT(S) = 9 AND O2(S) < 1 THEN  PRINT "    "Q$"No charges left,"Q$" he mumbles...":P = CH +  INT (10 *  RND (1) - 6)
+ 8270  PRINT "    Finally he looks up and says, "Q$"I'll give you "P" gold pieces for it,": PRINT "take it or leave it."Q$: PRINT 
+ 8280  PRINT "Select <T>ake it or <L>eave it: ";
+ 8290  GET A$: IF A$ <  > "T" AND A$ <  > "L" THEN 8290
+ 8300  IF A$ = "L" THEN  PRINT "Leave it": GOTO 8900
+ 8310  PRINT "Take it": PRINT : REM  ADJUSMENTS TO AC, ETC., HERE!
+ 8320  IF OT(S) = 2 THEN AC = AC - O1(S)
+ 8350 OB$(S) = OB$(NP):OT(S) = OT(NP):OV(S) = OV(NP):OW(S) = OW(NP):O1(S) = O1(NP):O2(S) = O2(NP):NP = NP - 1
+ 8360 GP = GP + P: PRINT "    Shaking your hand, Mr. Agle takes the item and gives you your gold.": PRINT : PRINT 
+ 8370  GOTO 8900
+ 8500  REM 
+
+  BUY AN ITEM
+
+
+ 8505  HOME 
+ 8510  PRINT : PRINT : PRINT "    "Q$"GREAT!  Here's what I got,"Q$" says Finn, gesturing to the following": PRINT "items:": PRINT 
+ 8520 V =  PEEK (37) + 1: FOR I = 1 TO NS: HTAB 5 + 40 * (I > NS / 2) + (I < 10): PRINT I". "SB$(I);: HTAB 35 + 40 * (I > NS / 2) -  LEN ( STR$ (SV(I))): PRINT SV(I): IF I =  INT (NS / 2) THEN  VTAB V
+ 8530  NEXT 
+ 8540  PRINT : PRINT "You have "GP" gold pieces.": PRINT "Enter number of item to buy, or <RETURN> if nothing: ";
+ 8550  INPUT "";A$: IF A$ <  > "" AND ( VAL (A$) < 1 OR  VAL (A$) > NS) THEN  VTAB  PEEK (37) - 3: CALL  - 958: GOTO 8540
+ 8560  IF A$ = "" THEN 8900
+ 8565  PRINT 
+ 8570 A =  VAL (A$)
+ 8580  IF SV(A) > GP THEN  PRINT : PRINT "    When the storekeep sees you don't have enough money, he turns very red,": PRINT "and asks you in a very polite tone to please select something you can afford.": PRINT : GOTO 8900
+ 8590  IF NP = 9 THEN  PRINT "    "Q$"Whoops!  I just realized, ya've already got nine items!"Q$"  He frowns": PRINT "at you.  "Q$"You try'na get me in trouble?  I canna give you another!"Q$: GOTO 8900
+ 8600  IF ST(A) <  > 2 THEN 8650
+ 8610  IF S2(A) < 6 THEN 8630
+ 8615  FOR I = 1 TO NP: IF OT(I) <  > 2 OR O2(I) < 6 THEN  NEXT : GOTO 8650
+ 8620  PRINT "    Mr. Agle frowns at your choice.  "Q$"This armour 'snot gonna fit over": PRINT "what ya've already got.  You'll hafta sell your old stuff first."Q$: GOTO 8900
+ 8630  FOR I = 1 TO NP: IF OT(I) <  > 2 OR O2(I) <  > 5 THEN  NEXT : GOTO 8650
+ 8640  PRINT "    "Q$"I'd love to sell you a good shield, but ya've already got one, and": PRINT "not even you can use two!": GOTO 8900
+ 8650  REM 
+ 8800  REM  MAKE ACTUAL TRANSACTION OF VARIABLES
+ 8810 NP = NP + 1:OB$(NP) = SB$(A):OT(NP) = ST(A):OV(NP) = SV(A):OW(NP) = SW(A):O1(NP) = S1(A):O2(NP) = S2(A)
+ 8820 GP = GP - SV(A)
+ 8830  IF OT(NP) = 2 THEN AC = AC + O1(NP)
+ 8890  PRINT : PRINT "Handing you the item you pointed out, the storekeeper smiles and takes your": PRINT "money.": PRINT 
+ 8900  REM 
+
+  GOODBYE FROM STORE
+
+ 8910  PRINT : PRINT : PRINT "    "Q$"Well,"Q$" asks Mr. Agle, "Q$"Do you wanna buy or sell anything else,": PRINT "'slong as you're here?"Q$"  ";
+ 8920  GET A$: IF A$ <  > "Y" AND A$ <  > "N" AND A$ <  > "B" AND A$ <  > "S" THEN 8920
+ 8925  IF A$ = "B" OR A$ = "S" THEN 8050
+ 8930  IF A$ = "Y" THEN  PRINT "You bet": PRINT : GOTO 8030
+ 8940  PRINT "No thanks": PRINT 
+ 8950  PRINT : PRINT : PRINT "    "Q$"Well, you come back real soon now, hear?"Q$: PRINT : PRINT : PRINT 
+ 8990  GOSUB 750: POKE 49232,0: GOTO 2000
+ 9000  REM 
+
+  THE TEMPLE
+
+
+ 9010 D = 0:Q$ =  CHR$ (34): TEXT : HOME :A$ = " THE TEMPLE ": PRINT : INVERSE : GOSUB 700: NORMAL 
+ 9020  PRINT : PRINT : PRINT "    As you enter the Temple of Elpa, you hear a low chanting in the background. Clerics, disciples, and other worshippers are copying books, tending gardens,"
+ 9030  PRINT "and generally doing the things that clerics, disciples, and other worshippers   generally do.": PRINT 
+ 9040  PRINT "    A man in robes approaches you, speaking to you while mumbling to himself."
+ 9050  PRINT "    "Q$"mugawugamumHow can I help you, my child? mumbulumbl..."
+ 9060  PRINT : PRINT "Select <M>ake donation, <H>eal wounds, <C>ure sickness, or <L>eave:": HTAB 35
+ 9070  GET A$: IF A$ <  > "M" AND A$ <  > "H" AND A$ <  > "C" AND A$ <  > "L" AND A$ <  >  CHR$ (27) THEN 9070
+ 9080  IF A$ = "L" OR A$ =  CHR$ (27) THEN  PRINT "Leave": GOTO 9900
+ 9090  IF A$ = "C" THEN  PRINT "Cure sickness": GOTO 9400
+ 9095  IF A$ = "H" THEN  PRINT "Heal wounds": GOTO 9200
+ 9100  PRINT "Make donation"
+ 9105  IF GP < 1 THEN  PRINT "    The man seems pleased, but is very disappointed when he sees you don't have any money with you.": PRINT : GOTO 9050
+ 9110  PRINT : PRINT "    "Q$"mumlumHow kind!  How much do you want to donate (1-"GP")?"Q$;
+ 9120  INPUT " ";A$: IF A$ < "0" OR  VAL (A$) > GP THEN  VTAB  PEEK (37): GOTO 9110
+ 9130 A =  VAL (A$):GP = GP - A:D = D + A: PRINT : PRINT "    "Q$"Bless you, my child; may Elpa smile in your general direction."Q$
+ 9140  PRINT : PRINT : GOTO 9050
+ 9200  REM  HEAL WOUNDS
+ 9210  PRINT : IF HP = HN THEN  PRINT "    The man examines your scars, but proclaims that you are fully healed, and   there is nothing more he can do.": PRINT : GOTO 9050
+ 9220  PRINT "    The man examines your scars, then gathers a flock of disciples to chant withhim.  (A small fee must be charged for the herbs and incense.)"
+ 9230  FOR I = 1 TO 6: PRINT : NEXT : VTAB  PEEK (37) - 4
+ 9240  IF GP < 5 THEN 9320
+ 9250  PRINT  TAB( 25)"Hit Points: "HP"/"HN"   Gold Pieces: "GP"  "
+ 9260  REM  Good place for sound FX  -chanting, etc.
+ 9270  FOR J = 1 TO 80:K =  PEEK (49152): IF K > 127 THEN  PRINT :J = 101: NEXT : GET A$: GOTO 9350
+ 9280  NEXT :U =  PEEK (49200 - SN) +  PEEK (49200 - SN)
+ 9300 GP = GP - 5: IF  RND (1) * 100 < CN + D THEN HP = HP + 1
+ 9305  VTAB  PEEK (37): PRINT  TAB( 25)"Hit Points: "HP"/"HN"   Gold Pieces: "GP"  "
+ 9310  IF GP > 4 AND HP < HN THEN 9260
+ 9320  PRINT : IF GP < 5 THEN  PRINT "    You do not have enough money for further healing.": GOTO 9350
+ 9330  PRINT "    The man and disciples proclaim you fully healed in the Name of Elpa."
+ 9350  PRINT : PRINT "    You thank the men for their aid, bow to the image of Elpa, and leave the": PRINT "Temple."
+ 9360  PRINT : PRINT : PRINT : GOTO 9990
+ 9400  REM   CURE SICKNESS
+ 9410  PRINT : IF  NOT HE THEN  PRINT "    The man examines you closely, but can find no trace of physical sickness.   (Mental, perhaps...)": PRINT : GOTO 9050
+ 9420  FOR I = 1 TO 6: PRINT : NEXT : VTAB  PEEK (37) - 4
+ 9440  PRINT  TAB( 25)"Health: "HE$ TAB( 50)"Gold Pieces: "GP TAB( 78)" "
+ 9450  IF GP < 20 THEN  PRINT : PRINT "    You don't have enough money for further healing.": GOTO 9350
+ 9470  FOR J = 1 TO 80:K =  PEEK (49152): IF K > 127 THEN  PRINT :J = 101: NEXT : GET A$: GOTO 9350
+ 9480  NEXT :U =  PEEK (49200 - SN) +  PEEK (49200 - SN)
+ 9500 GP = GP - 20: IF  RND (1) * 100 < CN + D THEN HE = HE - 1: RESTORE : FOR I = 1 TO HE + 1: READ HE$: NEXT 
+ 9510  IF HE THEN  VTAB  PEEK (37): GOTO 9440
+ 9520  PRINT "    The man proclaims you in perfect health.": GOTO 9350
+ 9900  REM  LEAVE THE TEMPLE
+ 9990  GOSUB 750: POKE 49232,0: GOTO 2000
+ 10000  REM    
+
+THE ARCHIVES
+
+
+ 10010 Q$ =  CHR$ (34): TEXT : HOME :A$ = " THE ARCHIVES ": PRINT : INVERSE : GOSUB 700: NORMAL 
+ 10020  VTAB 5: PRINT "    The walls here are lined with books, the room is filled with tables,": PRINT "the tables are covered with scrolls and notes, and scholars pour over it all.": PRINT 
+ 10030  PRINT "    An impatient-looking young human comes over to you as you enter.": PRINT "Introducing himself as the Head Keeper of Scrolls and Books pertaining to Spellsand Magic for Adventurers, he says:"
+ 10040  PRINT : PRINT "    "Q$"How may I help you?"Q$: PRINT 
+ 10050  PRINT "Select <R>ead spell descriptions,": PRINT "       <L>earn a spell or two, or": PRINT "       <E>xit": VTAB  PEEK (37) - 4: HTAB 27
+ 10060  GET A$: IF A$ <  > "R" AND A$ <  > "L" AND A$ <  > "E" AND A$ <  >  CHR$ (27) THEN 10060
+ 10070  IF A$ = "E" OR A$ =  CHR$ (27) THEN  PRINT "Exit": PRINT : CALL  - 958: GOTO 10900
+ 10080  IF A$ = "L" THEN  PRINT "Learn": PRINT : CALL  - 958: GOTO 10500
+ 10090  PRINT "Read": PRINT : CALL  - 958
+ 10100  HOME : PRINT : PRINT 
+ 10110 A = 12: GOSUB 10800
+ 10120  PRINT Q$"Of which spell would you like a description?"Q$;: INPUT " ";A$: IF (A$ < "1" OR  VAL (A$) > 20) AND A$ <  > "" THEN  VTAB  PEEK (37): GOTO 10120
+ 10130  IF A$ = "0" OR A$ = "" THEN 10200
+ 10140 S =  VAL (A$):C = SL(S) ^ 2 * 12: IF C > GP THEN  PRINT : PRINT "    "Q$"Sorry, but we can't describe the spell if you can't afford our fees.": PRINT "The Archives take money to support, you know!"Q$: PRINT : GOTO 10200
+ 10150 GP = GP - C: PRINT : PRINT SP$(S)" -": PRINT SD$(S): PRINT : PRINT 
+ 10200  PRINT "    (You have "GP" gold pieces left.)": PRINT : GOTO 10040
+ 10500  REM   SPELL LESSONS
+ 10510  HOME :A = 80: GOSUB 10800: PRINT 
+ 10520  PRINT Q$"Which spell would you like to attempt to learn?"Q$;: INPUT " ";A$: IF (A$ < "1" OR  VAL (A$) > 20) AND A$ <  > "" THEN  VTAB  PEEK (37): GOTO 10120
+ 10530  IF A$ = "0" OR A$ = "" THEN 10200
+ 10540 S =  VAL (A$):C = SL(S) ^ 2 * 80: IF C > GP THEN  PRINT : PRINT "    "Q$"Sorry, but if you can't afford our fees we can't teach you the": PRINT "spell.  The Archives need money to support, you know!"Q$: PRINT : GOTO 10200
+ 10543  IF SP(S) THEN  PRINT : PRINT "    You already know that spell!": PRINT : GOTO 10200
+ 10545  IF SP$(S) = "? ? ?" THEN  PRINT : PRINT "    Sorry, that spell isn't known to the archives.": PRINT : GOTO 10200
+ 10550 GP = GP - C: HOME : PRINT "    You are trying to learn the "SP$(S)" spell:": VTAB 3: PRINT  TAB( 10)"Lecture..."
+ 10560 A = 0: FOR I = 1 TO 20:A = A +  SGN (SP(I)): NEXT : FOR J = 1 TO 1000: NEXT 
+ 10570  PRINT : PRINT  TAB( 10)"Study...":F = 0: FOR J = 1 TO 1500: NEXT : IF SL(S) > LV + 1 THEN F = 1
+ 10580  PRINT : PRINT  TAB( 10)"Cram...": FOR J = 1 TO 2000: NEXT : IF A > LV +  INT ((IN - 18) / 2) AND  RND (1) > .5 THEN F = 1
+ 10585  IF IN <  INT (25 *  RND (1) + 1) THEN F = 1
+ 10590  PRINT : PRINT  TAB( 10)"Practice": PRINT  TAB( 10)"practice...":I = 0: IF A > LV +  INT ((IN - 18) / 2) AND  NOT F THEN  FOR J = 1 TO 100:I =  INT (20 *  RND (1) + 1): IF  NOT SP(I) THEN  NEXT 
+ 10600 SP(I) = 0: FOR J = 1 TO 1000: NEXT 
+ 10610  PRINT : PRINT : IF F THEN  PRINT "    Sorry, you just couldn't get it this time.": PRINT : GOTO 10200
+ 10620  PRINT "    Success!  You now have the "SP$(S)" spell at your command.": PRINT 
+ 10630 SP(S) = 10 +  INT (IN - 17) * 2: GOTO 10200
+ 10800  REM  PRINT LIST OF SPELLS
+ 10810 V =  PEEK (37) + 1: PRINT "Type I": FOR I = 1 TO 5: PRINT "   "I". "SP$(I);:S$ =  STR$ (SL(I) ^ 2 * A): HTAB 30 -  LEN (S$): PRINT S$: NEXT 
+ 10820  PRINT : PRINT "Type II": FOR I = 6 TO 9: PRINT "   "I". "SP$(I);:S$ =  STR$ ( INT (SL(I) ^ 2 * A)): HTAB 30 -  LEN (S$): PRINT S$: NEXT 
+ 10830  PRINT "  10. "SP$(10);:S$ =  STR$ (SL(10) ^ 2 * A): HTAB 30 -  LEN (S$): PRINT S$
+ 10840  VTAB V: HTAB 40: PRINT "Type III": FOR I = 11 TO 15: HTAB 42: PRINT I". "SP$(I);:S$ =  STR$ ( INT (SL(I) ^ 2 * A)): HTAB 70 -  LEN (S$): PRINT S$: NEXT 
+ 10850  PRINT : HTAB 40: PRINT "Type IV": FOR I = 16 TO 20: HTAB 42: PRINT I". "SP$(I);:S$ =  STR$ (SL(I) ^ 2 * A): HTAB 70 -  LEN (S$): PRINT S$: NEXT 
+ 10860  PRINT : RETURN 
+ 10900  REM 
+ 10990  GOSUB 750: POKE 49232,0: GOTO 2000
+ 11000  REM 
+
+  CEMETARY
+
+
+ 11010  TEXT : HOME :A$ = " CEMETARY ": PRINT : INVERSE : GOSUB 700: NORMAL : POKE 49168,0
+ 11020  PRINT D$"OPENOBITUARY": PRINT D$"READOBITUARY": ONERR  GOTO 11990
+ 11030 R = 1
+ 11100  INPUT C$
+ 11110 H =  INT (60 *  RND (1) + 2):V =  INT (14 *  RND (1) + 2): GOSUB 11700
+ 11130  IF R / 5 <  >  INT (R / 5) THEN R = R + 1: GOTO 11100
+ 11140  GOSUB 750: HOME : PRINT :R = R + 1: GOTO 11100
+ 11700  REM   DRAW TOMBSTONE FOR C$ AT H,V
+ 11710  VTAB V: HTAB H: INVERSE :A$ = "               ": HTAB H + 3: PRINT  LEFT$ (A$,9): HTAB H + 1: PRINT  LEFT$ (A$,13): HTAB H: PRINT A$: HTAB H: PRINT A$: VTAB  PEEK (37)
+ 11720 B$ =  LEFT$ (C$,15): HTAB H + 8 -  LEN (B$) / 2: PRINT B$
+ 11730  FOR I = 1 TO 4: HTAB H: PRINT A$: NEXT : NORMAL : RETURN 
+ 11990  PRINT D$"CLOSE": POKE 216,0: GOSUB 750: POKE 49232,0: GOTO 2000
+ 29000  REM 
+  ADJUSTMENTS FOR NEW LEVEL
+ 29010 LV =  INT ( SQR (EX / 1000)): RETURN 
+ 29500  REM 
+
+  SAVE CHARACTER
+
+
+ 29510  PRINT : PRINT D$"OPEN"CN$: PRINT D$"DELETE"CN$: PRINT D$"OPEN"CN$: PRINT D$"WRITE"CN$
+ 29520  PRINT CN$: PRINT RC","CS","AG","HE: PRINT HN","HP","AC: PRINT ST","IN","DX","CN","CN
+ 29530  PRINT EX","LV: PRINT GP","GB: PRINT WA(1)","WA(2)","WA(3)","WA(4)","WA(5)
+ 29540  PRINT SA(1)","SA(2)","SA(3)","SA(4)
+ 29550  PRINT NP: IF  NOT NP THEN 29580
+ 29560  FOR I = 1 TO NP: PRINT OB$(I)","OT(I)","OV(I)","OW(I)","O1(I)","O2(I)
+ 29570  NEXT 
+ 29580  FOR I = 1 TO 20: PRINT SP(I)
+ 29590  NEXT : PRINT D$"CLOSE"
+ 29990  RETURN 
+ 30000  REM 
+
+  LOAD CHARACTER
+
+
+ 30010  PRINT : PRINT D$"OPENWHASISNAME": PRINT D$"READWHASISNAME"
+ 30020  INPUT CN$
+ 30030  PRINT D$"CLOSE"
+ 30040  PRINT : PRINT D$"OPEN"CN$: PRINT D$"READ"CN$
+ 30050  INPUT A$
+ 30060  INPUT RC,CS,AG,HE: INPUT HN,HP,AC: INPUT ST,IN,DX,CN,CH: INPUT EX,LV
+ 30065  INPUT GP,GB
+ 30070  INPUT WA(1),WA(2),WA(3),WA(4),WA(5)
+ 30080  INPUT SA(1),SA(2),SA(3),SA(4)
+ 30100  INPUT NP: IF  NOT NP THEN 30150
+ 30110  FOR I = 1 TO NP: INPUT OB$(I),OT(I),OV(I),OW(I),O1(I),O2(I)
+ 30120  NEXT 
+ 30150  FOR I = 1 TO 20: INPUT SP(I): NEXT 
+ 30160  PRINT D$"CLOSE"
+ 30180  IF LV <  INT ( SQR (EX / 1000)) THEN  GOSUB 29000
+ 30200  FOR I = 1 TO HE + 1: READ HE$: NEXT : DATA Good,Ill,Sick,Sick,Rather Sick,Very Sick,Very Sick,Dying,Dying,Nearly Dead,Dead
+ 30205  IF HE$ <  > "Dead" THEN  READ A$: IF A$ <  > "Dead" THEN 30205
+ 30210  FOR I = 1 TO RC: READ RC$: NEXT : DATA Human,Elf,Dwarf,Half-Elf,Half-Dwarf,Half-Ogre
+ 30220  IF RC$ <  > "Half-Ogre" AND A$ <  > "Half-Ogre" THEN  READ A$: GOTO 30220
+ 30300  READ NS: FOR I = 1 TO NS: READ SB$(I),ST(I),SV(I),SW(I),S1(I),S2(I)
+ 30310  NEXT 
+ 30340  DATA 22
+ 30350  DATA BATTLE AXE,8,34,5,1,7
+ 30360  DATA HAND AXE,8,10,4,1,4
+ 30370  DATA CROSSBOW,8,140,10,2,8
+ 30375  DATA LONG BOW,8,75,9,2,7
+ 30380  DATA SHORT BOW,8,25,7,2,5
+ 30390  DATA DAGGER,8,7,1,5,4
+ 30400  DATA SHORT SWORD,8,12,4,5,6
+ 30410  DATA SWORD,8,28,6,5,7
+ 30420  DATA LONG SWORD,8,65,15,5,8
+ 30430  DATA MACE,8,9,5,3,6
+ 30440  DATA CLUB,8,5,3,1,3
+ 30450  DATA POLE ARM,8,24,6,1,6
+ 30460  DATA SLING,8,5,10,3,6
+ 30470  DATA SPEAR,8,6,5,4,5
+ 30480  DATA LEATHER ARMOUR,2,25,2,3,6
+ 30490  DATA CHAIN MAIL,2,75,10,5,10
+ 30500  DATA PLATE MAIL,2,250,15,7,15
+ 30510  DATA SHIELD,2,15,7,1,5
+ 30520  DATA BACKPACK,1,8,2,30,0
+ 30530  DATA WINESKIN,1,3,2,10,0
+ 30540  DATA CHICKEN SOUP,4,35,4,2,4
+ 30550  DATA HEALING POTION,4,250,5,2,20
+ 30600  FOR I = 1 TO 20: READ SP$(I),SL(I),SD$(I): NEXT 
+ 30610  DATA MALHALITOS,1,"Causes a stinking cloud, choking all enemies."
+ 30620  DATA SERVOME,3,"A magic shield, deflecting attacks; improves with experience."
+ 30630  DATA ZAPPO,5,"A bolt of light strikes an enemy; damage increases with experience."
+ 30640  DATA "? ? ?",0,"  < No entry in the books for this spell. >"
+ 30650  DATA "? ? ?",0,"  < No entry in the books for this spell. >"
+ 30660  DATA MEDIHEP,2,"Heals cuts, gashes, abrasions, and other wounds."
+ 30670  DATA ZAZUP,3,"Increases strength, often to ogrish proportions."
+ 30680  DATA ZIPPO,5,"Increases speed, allowing caster to move much faster than others."
+ 30690  DATA PORTAMAZ,7,"Teleports caster to another location in the same dimension."
+ 30700  DATA KOPPAUT,8,"Teleports caster instantly and safely back to the Shire."
+ 30710  DATA  POOLAY,1,"Instills great fear of the caster in enemies, causing them to flee." 
+ 30720  DATA NUDAMON,4,"Causes enemy to drop its possessions."
+ 30730  DATA CHAUBAIBZ,6,"Teleports a foe to a random location in the same plane."
+ 30740  DATA FROOD,7,"Charms a hostile into being endeared towards the caster."
+ 30750  DATA "? ? ?",0,"  < No entry in the books for this spell. >"
+ 30760  DATA EPHOKE,1,"Illuminates the room with a pure bluish-white light."
+ 30770  DATA SEZME,4,"Opens most kinds of locks and fasteners."
+ 30780  DATA ANIMUS,8,"Animates an inanimate object; can create undead."
+ 30790  DATA  "? ? ?",0,"  < No entry in the books for this spell. >"  
+ 30800  DATA  "? ? ?",0,"  < No entry in the books for this spell. >"
+ 30999  RETURN 
+                   
