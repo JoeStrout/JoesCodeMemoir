@@ -1,0 +1,358 @@
+DISK CONTENT EXTRACTION LOG
+Performed by Applesauce v1.58
+www.applesaucefdc.com
+
+Timestamp: Jan 11, 2022, 15:14
+
+    Media: 5.25" Floppy Disk
+   Format: Apple II DOS 3.3 (16 sector)
+
+== STATUS ======================================================================
+
+42 files were detected on the disk.
+No issues were encountered with the extraction process.
+
+== CATALOG =====================================================================
+
+DISK VOLUME 254
+
+*B 002 LOWER-UPPER
+ T 006 X
+ T 003 X.OB
+ T 003 X.DC
+*A 025 CREATOR XV
+ T 002 TEST
+*A 004 HELLO
+ B 003 PORTAL OBJ
+*A 008 BEEPER
+*B 002 APPLE.BEEP
+ A 032 WHIZARDS
+*B 002 TONE
+*A 024 WHIZARDS IX
+*A 029 WHIZARDS XI
+*A 029 WHIZARDS X
+ A 007 QUESTRON
+ B 007 TEST2
+ B 004 SCREENTEST
+ A 007 QUEST.CREATE
+ A 007 QUEST.CREATE2
+*A 018 WHIZARDS VIII
+*A 000 CREATOR XIII
+ A 007 QUESTRON2
+*A 025 CREATOR XIV
+*A 030 CREATOR XVI
+ T 003 SCRN1
+ A 031 CREATOR XVII
+ B 002 SCRN1.OBJ0
+ T 003 SCRN2
+ B 002 SCRN2.OBJ0
+*A 004 ADVENTURE 1
+ A 004 JAD 1
+*A 010 JAD 1.1
+ B 002 DGN1
+ B 034 SAMPLE1
+*A 010 JAD 1.2
+*A 005 JAD-CRT 1.0
+*A 011 JAD 1.3
+ A 013 JAD 1.4
+ A 005 JAD CHARCREATE 0.1
+ A 029 CREATOR
+ A 006 INTFIC
+
+
+== FILE DETAILS ================================================================
+
+LOWER-UPPER
+B - Binary                                 MD5: ba4e3ce8fe3194a99d98d263c821906c
+
+  Address: $0300         Size: 129        Sectors: 2              TSL: T$18 S$0F
+
+--------------------------------------------------------------------------------
+
+X
+T - Text                                   MD5: 1528eaa7ee427a469a8172c4926171ea
+
+                                          Sectors: 6              TSL: T$0B S$0F
+
+--------------------------------------------------------------------------------
+
+X.OB
+T - Text                                   MD5: da5daa9d25785719e93a2b8d5e99a026
+
+                                          Sectors: 3              TSL: T$0A S$0F
+
+--------------------------------------------------------------------------------
+
+X.DC
+T - Text                                   MD5: 5cebf51c902959ac2ca08a3427f47170
+
+                                          Sectors: 3              TSL: T$09 S$0F
+
+--------------------------------------------------------------------------------
+
+CREATOR XV
+A - Applesoft BASIC                        MD5: 3c7fc59267795e15c4f5a4ab4c4e0da6
+
+Prog Size: 5902                           Sectors: 25             TSL: T$1B S$00
+
+--------------------------------------------------------------------------------
+
+TEST
+T - Text                                   MD5: 2e7898a09cd5bcd58da01d99363431e8
+
+                                          Sectors: 2              TSL: T$0E S$01
+
+--------------------------------------------------------------------------------
+
+HELLO
+A - Applesoft BASIC                        MD5: f6adc6dc4b4c81ab86264de379f385a8
+
+Prog Size: 637                            Sectors: 4              TSL: T$1F S$0F
+
+--------------------------------------------------------------------------------
+
+PORTAL OBJ
+B - Binary                                 MD5: 1aecf84ea8651137206115085c5014ca
+
+  Address: $9400         Size: 463        Sectors: 3              TSL: T$13 S$0F
+
+--------------------------------------------------------------------------------
+
+BEEPER
+A - Applesoft BASIC                        MD5: ee967197b4b94c85fdf12067e6e8fc89
+
+Prog Size: 1594                           Sectors: 8              TSL: T$05 S$0D
+
+--------------------------------------------------------------------------------
+
+APPLE.BEEP
+B - Binary                                 MD5: 94fd8e333dafa89dfcd74647dd4b9d7f
+
+  Address: $0300         Size: 37         Sectors: 2              TSL: T$04 S$0E
+
+--------------------------------------------------------------------------------
+
+WHIZARDS
+A - Applesoft BASIC                        MD5: 1bbf12122ad4131746d14a3bba516928
+
+Prog Size: 7925                           Sectors: 32             TSL: T$1B S$0F
+
+--------------------------------------------------------------------------------
+
+TONE
+B - Binary                                 MD5: b09bf1e0adcddb666b5973dc17609de5
+
+  Address: $0302         Size: 21         Sectors: 2              TSL: T$04 S$0B
+
+--------------------------------------------------------------------------------
+
+WHIZARDS IX
+A - Applesoft BASIC                        MD5: 7a323834e3d1ac467b73ec498f7acd2e
+
+Prog Size: 5734                           Sectors: 24             TSL: T$17 S$0E
+
+--------------------------------------------------------------------------------
+
+WHIZARDS XI
+A - Applesoft BASIC                        MD5: caedea0983e2a90fb15bea62b125aee4
+
+Prog Size: 7142                           Sectors: 29             TSL: T$0F S$0F
+
+--------------------------------------------------------------------------------
+
+WHIZARDS X
+A - Applesoft BASIC                        MD5: d12cf0bb7305fffe612eed14102aaeb0
+
+Prog Size: 6923                           Sectors: 29             TSL: T$16 S$0D
+
+--------------------------------------------------------------------------------
+
+QUESTRON
+A - Applesoft BASIC                        MD5: 93385e9d643cbdfcd83a1167f3d4ceab
+
+Prog Size: 1291                           Sectors: 7              TSL: T$14 S$0F
+
+--------------------------------------------------------------------------------
+
+TEST2
+B - Binary                                 MD5: e2db47105d8cb38c1c5fb6486dc3bf95
+
+  Address: $2000         Size: 1448       Sectors: 7              TSL: T$03 S$0F
+
+--------------------------------------------------------------------------------
+
+SCREENTEST
+B - Binary                                 MD5: eb87c5103322c2bb29c05ef5fca643ab
+
+  Address: $2000         Size: 724        Sectors: 4              TSL: T$05 S$0F
+
+--------------------------------------------------------------------------------
+
+QUEST.CREATE
+A - Applesoft BASIC                        MD5: 14641c7d156ea7cce0c4c54e4f95c790
+
+Prog Size: 1336                           Sectors: 7              TSL: T$04 S$0F
+
+--------------------------------------------------------------------------------
+
+QUEST.CREATE2
+A - Applesoft BASIC                        MD5: f05fbf5d8f6b7c5707bcd65f37e15ba2
+
+Prog Size: 1407                           Sectors: 7              TSL: T$20 S$0E
+
+--------------------------------------------------------------------------------
+
+WHIZARDS VIII
+A - Applesoft BASIC                        MD5: 6c0d0c34c50d6d123c8b897ed530d719
+
+Prog Size: 4129                           Sectors: 18             TSL: T$1F S$0C
+
+--------------------------------------------------------------------------------
+
+CREATOR XIII
+A - Applesoft BASIC                                                        MD5: 
+
+  Sectors: 0              TSL: T$1E S$07
+
+--------------------------------------------------------------------------------
+
+QUESTRON2
+A - Applesoft BASIC                        MD5: 95297197d34522127f2d4ef6ce24a3a4
+
+Prog Size: 1513                           Sectors: 7              TSL: T$10 S$0F
+
+--------------------------------------------------------------------------------
+
+CREATOR XIV
+A - Applesoft BASIC                        MD5: 48a547cf3dba2c790a732e345dda895a
+
+Prog Size: 5904                           Sectors: 25             TSL: T$0F S$03
+
+--------------------------------------------------------------------------------
+
+CREATOR XVI
+A - Applesoft BASIC                        MD5: 42302513efdf6e80c5723385bbe392fb
+
+Prog Size: 7166                           Sectors: 30             TSL: T$04 S$02
+
+--------------------------------------------------------------------------------
+
+SCRN1
+T - Text                                   MD5: 6dad8c1e22027f9b4a1b50be48d0041d
+
+                                          Sectors: 3              TSL: T$03 S$0B
+
+--------------------------------------------------------------------------------
+
+CREATOR XVII
+A - Applesoft BASIC                        MD5: 27c35a3d7bcc4462c9e5e8065fbc821b
+
+Prog Size: 7490                           Sectors: 31             TSL: T$0F S$05
+
+--------------------------------------------------------------------------------
+
+SCRN1.OBJ0
+B - Binary                                 MD5: def33dec853235baba526c72b51d7c80
+
+  Address: $0C00         Size: 42         Sectors: 2              TSL: T$12 S$0A
+
+--------------------------------------------------------------------------------
+
+SCRN2
+T - Text                                   MD5: eedc11075786f2c82c3c21cb4c905748
+
+                                          Sectors: 3              TSL: T$18 S$0C
+
+--------------------------------------------------------------------------------
+
+SCRN2.OBJ0
+B - Binary                                 MD5: 4a788a0e6e8a908340e0c336d51284ab
+
+  Address: $0C00         Size: 42         Sectors: 2              TSL: T$22 S$00
+
+--------------------------------------------------------------------------------
+
+ADVENTURE 1
+A - Applesoft BASIC                        MD5: b2f79aa5602067a43995ddb75c29b2ca
+
+Prog Size: 564                            Sectors: 4              TSL: T$0C S$09
+
+--------------------------------------------------------------------------------
+
+JAD 1
+A - Applesoft BASIC                        MD5: 638281aa53cedb1e4960b5c34a2f4858
+
+Prog Size: 574                            Sectors: 4              TSL: T$0A S$09
+
+--------------------------------------------------------------------------------
+
+JAD 1.1
+A - Applesoft BASIC                        MD5: 5a6dd284aed934daf909d3aaa6a106fe
+
+Prog Size: 2064                           Sectors: 10             TSL: T$08 S$0D
+
+--------------------------------------------------------------------------------
+
+DGN1
+B - Binary                                 MD5: 669fb0ead1c5c279582c6598f1e73d8d
+
+  Address: $4000         Size: 25         Sectors: 2              TSL: T$18 S$09
+
+--------------------------------------------------------------------------------
+
+SAMPLE1
+B - Binary                                 MD5: 625d21cf7a0195756ec6f30b51412457
+
+  Address: $2000         Size: 8191       Sectors: 34             TSL: T$06 S$0F
+
+--------------------------------------------------------------------------------
+
+JAD 1.2
+A - Applesoft BASIC                        MD5: 166666ff0c99592f0253a139d629e72a
+
+Prog Size: 2206                           Sectors: 10             TSL: T$13 S$0B
+
+--------------------------------------------------------------------------------
+
+JAD-CRT 1.0
+A - Applesoft BASIC                        MD5: 8c407607806ecf0af77b29a8a7ba8aad
+
+Prog Size: 938                            Sectors: 5              TSL: T$14 S$0A
+
+--------------------------------------------------------------------------------
+
+JAD 1.3
+A - Applesoft BASIC                        MD5: da36adca4254a71461c89802c5f67e13
+
+Prog Size: 2314                           Sectors: 11             TSL: T$19 S$0E
+
+--------------------------------------------------------------------------------
+
+JAD 1.4
+A - Applesoft BASIC                        MD5: b0c15f6681c91836b82e8818efc0219d
+
+Prog Size: 2885                           Sectors: 13             TSL: T$0C S$06
+
+--------------------------------------------------------------------------------
+
+JAD CHARCREATE 0.1
+A - Applesoft BASIC                        MD5: ff3ad142de8ccd1e86ecd185ef5f4773
+
+Prog Size: 834                            Sectors: 5              TSL: T$08 S$03
+
+--------------------------------------------------------------------------------
+
+CREATOR
+A - Applesoft BASIC                        MD5: a8605259ee3a64c9b74668903aba3ace
+
+Prog Size: 7163                           Sectors: 29             TSL: T$13 S$01
+
+--------------------------------------------------------------------------------
+
+INTFIC
+A - Applesoft BASIC                        MD5: fb72e597ba2985e5efe1c28aa471d060
+
+Prog Size: 1230                           Sectors: 6              TSL: T$07 S$0D
+
+--------------------------------------------------------------------------------
+

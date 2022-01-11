@@ -1,0 +1,158 @@
+DISK CONTENT EXTRACTION LOG
+Performed by Applesauce v1.58
+www.applesaucefdc.com
+
+Timestamp: Jan 11, 2022, 15:14
+
+    Media: 5.25" Floppy Disk
+   Format: Apple II DOS 3.3 (16 sector)
+
+== STATUS ======================================================================
+
+17 files were detected on the disk.
+No issues were encountered with the extraction process.
+
+== CATALOG =====================================================================
+
+DISK VOLUME 254
+
+*A 006 HELLO
+*A 003 APPLE PANIC
+*B 088 APPLE PANIC.OBJ0
+*A 004 SNACK ATTACK
+*T 002 SNACK ATTACK.EXEC
+*A 003 SNACK ATTACK.MAKE EXEC
+*B 003 SNACK ATTACK.LOADER
+*B 034 SNACK ATTACK.PIC
+*B 026 SNACK ATTACK.800.1FFF
+*B 088 SNACK ATTACK.4000.95FF
+*B 034 SNACK ATTACK.A000.BFFF
+*A 002 THIEF
+*T 002 THIEF.EXEC
+*B 034 THIEF.PIC
+*B 026 THIEF.OBJ0
+*B 050 THIEF.OBJ1
+*B 056 THIEF.SHAPES
+
+
+== FILE DETAILS ================================================================
+
+HELLO
+A - Applesoft BASIC                        MD5: 06de2f18b232861146c0db0d9be24e72
+
+Prog Size: 1189                           Sectors: 6              TSL: T$13 S$0F
+
+--------------------------------------------------------------------------------
+
+APPLE PANIC
+A - Applesoft BASIC                        MD5: 1c7819a49b967674bd79358ba6f551eb
+
+Prog Size: 399                            Sectors: 3              TSL: T$14 S$0F
+
+--------------------------------------------------------------------------------
+
+APPLE PANIC.OBJ0
+B - Binary                                 MD5: 013930174fd54bd07277511fd21d50f9
+
+  Address: $3FF4         Size: 22022      Sectors: 88             TSL: T$15 S$0F
+
+--------------------------------------------------------------------------------
+
+SNACK ATTACK
+A - Applesoft BASIC                        MD5: 8df192528e46dce0f24c380aadd4d433
+
+Prog Size: 505                            Sectors: 4              TSL: T$16 S$0F
+
+--------------------------------------------------------------------------------
+
+SNACK ATTACK.EXEC
+T - Text                                   MD5: 618c6ca8dae863577d00ab92cab7ed61
+
+                                          Sectors: 2              TSL: T$17 S$0F
+
+--------------------------------------------------------------------------------
+
+SNACK ATTACK.MAKE EXEC
+A - Applesoft BASIC                        MD5: df93d3a8e3d9773a1331bdf40d21dfc9
+
+Prog Size: 283                            Sectors: 3              TSL: T$18 S$0F
+
+--------------------------------------------------------------------------------
+
+SNACK ATTACK.LOADER
+B - Binary                                 MD5: d7abf15d25db13b9f557f8192b240b48
+
+  Address: $02FA         Size: 256        Sectors: 3              TSL: T$19 S$0F
+
+--------------------------------------------------------------------------------
+
+SNACK ATTACK.PIC
+B - Binary                                 MD5: 0a1d604908cce41c7497c68baf18b17c
+
+  Address: $2000         Size: 8191       Sectors: 34             TSL: T$1A S$0F
+
+--------------------------------------------------------------------------------
+
+SNACK ATTACK.800.1FFF
+B - Binary                                 MD5: 9a97fa91b8e3838ef89312e6fc60967f
+
+  Address: $0800         Size: 6143       Sectors: 26             TSL: T$1B S$0F
+
+--------------------------------------------------------------------------------
+
+SNACK ATTACK.4000.95FF
+B - Binary                                 MD5: 87d9ec07f06742a50d412d5db36be820
+
+  Address: $4000         Size: 22015      Sectors: 88             TSL: T$1C S$0F
+
+--------------------------------------------------------------------------------
+
+SNACK ATTACK.A000.BFFF
+B - Binary                                 MD5: 7b65933f5b9ff7dd89a992ac7a6e699d
+
+  Address: $4000         Size: 8191       Sectors: 34             TSL: T$1D S$0F
+
+--------------------------------------------------------------------------------
+
+THIEF
+A - Applesoft BASIC                        MD5: 5225ba69809fbdd0a68d70e3c67b80da
+
+Prog Size: 173                            Sectors: 2              TSL: T$1E S$0F
+
+--------------------------------------------------------------------------------
+
+THIEF.EXEC
+T - Text                                   MD5: 376c254eadde5fb1aac9655581a72fd9
+
+                                          Sectors: 2              TSL: T$1F S$0F
+
+--------------------------------------------------------------------------------
+
+THIEF.PIC
+B - Binary                                 MD5: daa2e0a903dcd7018259ab78ce0b0291
+
+  Address: $2000         Size: 8191       Sectors: 34             TSL: T$20 S$0F
+
+--------------------------------------------------------------------------------
+
+THIEF.OBJ0
+B - Binary                                 MD5: 2bbd717107bc6057e81a6216acdcb3ab
+
+  Address: $07FD         Size: 6147       Sectors: 26             TSL: T$21 S$0F
+
+--------------------------------------------------------------------------------
+
+THIEF.OBJ1
+B - Binary                                 MD5: 6b73105b607f3d23e2789ece35c65f13
+
+  Address: $4000         Size: 12287      Sectors: 50             TSL: T$22 S$0F
+
+--------------------------------------------------------------------------------
+
+THIEF.SHAPES
+B - Binary                                 MD5: d48feee3e83734f32f216def06268679
+
+  Address: $6000         Size: 13823      Sectors: 56             TSL: T$14 S$0A
+
+--------------------------------------------------------------------------------
+

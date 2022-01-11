@@ -1,0 +1,534 @@
+DISK CONTENT EXTRACTION LOG
+Performed by Applesauce v1.58
+www.applesaucefdc.com
+
+Timestamp: Jan 11, 2022, 15:12
+
+    Media: 5.25" Floppy Disk
+   Format: Apple II DOS 3.3 (16 sector)
+
+== STATUS ======================================================================
+
+64 files were detected on the disk.
+No issues were encountered with the extraction process.
+
+== CATALOG =====================================================================
+
+DISK VOLUME 254
+
+ A 020 HELLO
+ A 004 WORM"
+ B 002 WORM.SHAPE
+ A 004 LUNAR LANDER
+ B 002 LANDER.SHAPES
+*B 034 LANDER.PICTURE
+*A 012 HEXAPAWN
+ A 003 LASER.SIM
+*A 002 METRONOME
+ A 003 NAMEGAME
+ A 007 ANOTHER NAMEGAME
+ A 009 WATOR
+ A 002 TIME WARP
+ A 002 USELESS TYPER
+ A 003 GLOBAL THERMOSCAN
+ A 002 VOLCANO
+ A 003 HUNT
+ A 002 CHARFLASH
+*A 008 ALIEN LETTERS
+ A 007 SNAKEBYTE
+ A 006 SCREEN FLIPPER
+ A 003 SCREEN SHRINKER
+ A 003 DOGGY NUMBERS
+ A 012 DOGGY NUMBERS.PGM
+ B 004 NUMBERS.SHAPES
+ B 004 DOGGY.SHAPES
+ A 009 BUBBLES"
+ B 003 BUBBLES.SHAPES
+*A 002 MULTI-TONE GENIE
+*A 010 GHOSTBUSTERS
+*B 002 GBUSTERS.SHAPES
+ A 002 N
+ A 005 DRAGON'S BREATH
+ B 003 DRAGON.SHAPES
+*A 002 GRAPH MOUNTAIN
+*A 002 COLOR COLUMN
+ A 002 ROLLING OFF A CLIFF
+ A 002 JOE'S COMET
+*B 002 SOUNDS
+ A 030 BERSERK
+*B 006 BERSERK.FONT
+*B 002 BERSERK.SNDS
+ A 039 GRUNT
+*B 002 SOUND
+ A 007 GRUNT.SCORES
+*B 003 GRUNT.SHAPES
+ B 004 LISA.SHAPES
+ A 003 LISA'S SHAPES
+ A 015 OTHELLO
+ T 002 GRNT.HISCRS
+*A 027 AWAY
+ A 013 SOUND TWIDDLER
+ A 013 MORSE TRAINER
+ A 004 VAN DEVENTER
+ A 008 ORBIT SIMULATOR
+ A 008 V-MIN MYST
+ A 010 BLACKJACK
+ A 017 MAGIC DEUL.TEXT
+ B 002 DIVER.SHAPES
+ A 007 MANDELBROT
+ A 004 PONG
+ B 003 GRUNT.SHAPES2
+ A 048 LEMONADE
+ A 002 CLASSIC LEMONADE
+
+
+== FILE DETAILS ================================================================
+
+HELLO
+A - Applesoft BASIC                        MD5: 58413b85c1819eca42044a81b67dbcf5
+
+Prog Size: 4730                           Sectors: 20             TSL: T$12 S$0F
+
+--------------------------------------------------------------------------------
+
+WORM"
+A - Applesoft BASIC                        MD5: 1d81dd13a5c8ae41b3b0c78d60232a28
+
+Prog Size: 660                            Sectors: 4              TSL: T$12 S$0D
+
+--------------------------------------------------------------------------------
+
+WORM.SHAPE
+B - Binary                                 MD5: 03f2ed56199a1b0bf09724daa116d242
+
+  Address: $6100         Size: 61         Sectors: 2              TSL: T$12 S$09
+
+--------------------------------------------------------------------------------
+
+LUNAR LANDER
+A - Applesoft BASIC                        MD5: f576d5fb54fe03e5d7396a6edf0d5405
+
+Prog Size: 602                            Sectors: 4              TSL: T$12 S$07
+
+--------------------------------------------------------------------------------
+
+LANDER.SHAPES
+B - Binary                                 MD5: 6d410407c11d5c2b2285e760dceb2717
+
+  Address: $61A8         Size: 92         Sectors: 2              TSL: T$12 S$03
+
+--------------------------------------------------------------------------------
+
+LANDER.PICTURE
+B - Binary                                 MD5: 377de6b99c1c2d02b9c093eeec9f0e7f
+
+  Address: $2000         Size: 8192       Sectors: 34             TSL: T$12 S$01
+
+--------------------------------------------------------------------------------
+
+HEXAPAWN
+A - Applesoft BASIC                        MD5: 4d5d5c5bf103e0bbbdb2a031bf5347aa
+
+Prog Size: 2680                           Sectors: 12             TSL: T$15 S$0F
+
+--------------------------------------------------------------------------------
+
+LASER.SIM
+A - Applesoft BASIC                        MD5: 2bfe087f301205811bcde92097d41cbc
+
+Prog Size: 384                            Sectors: 3              TSL: T$15 S$03
+
+--------------------------------------------------------------------------------
+
+METRONOME
+A - Applesoft BASIC                        MD5: a003b424a236b24c5a3fc24aa792f03f
+
+Prog Size: 99                             Sectors: 2              TSL: T$15 S$00
+
+--------------------------------------------------------------------------------
+
+NAMEGAME
+A - Applesoft BASIC                        MD5: c58e9f1425780d4236c6a4eb3b972527
+
+Prog Size: 362                            Sectors: 3              TSL: T$16 S$0E
+
+--------------------------------------------------------------------------------
+
+ANOTHER NAMEGAME
+A - Applesoft BASIC                        MD5: 6a8ba56e9474c284d54a319924ab607d
+
+Prog Size: 1281                           Sectors: 7              TSL: T$16 S$0B
+
+--------------------------------------------------------------------------------
+
+WATOR
+A - Applesoft BASIC                        MD5: 0416e79e52a20c1c278844367cb8ac76
+
+Prog Size: 1992                           Sectors: 9              TSL: T$10 S$0F
+
+--------------------------------------------------------------------------------
+
+TIME WARP
+A - Applesoft BASIC                        MD5: 21c2ab8aa9c3b576bca7c0a433d3fc89
+
+Prog Size: 151                            Sectors: 2              TSL: T$16 S$03
+
+--------------------------------------------------------------------------------
+
+USELESS TYPER
+A - Applesoft BASIC                        MD5: dd880cd70a3f367af499e20429964538
+
+Prog Size: 179                            Sectors: 2              TSL: T$16 S$01
+
+--------------------------------------------------------------------------------
+
+GLOBAL THERMOSCAN
+A - Applesoft BASIC                        MD5: 0f9263f4ce52f1415e995a54ee281c45
+
+Prog Size: 355                            Sectors: 3              TSL: T$17 S$0F
+
+--------------------------------------------------------------------------------
+
+VOLCANO
+A - Applesoft BASIC                        MD5: f8b6668adac31d9ab13366e6e0c60296
+
+Prog Size: 196                            Sectors: 2              TSL: T$17 S$0C
+
+--------------------------------------------------------------------------------
+
+HUNT
+A - Applesoft BASIC                        MD5: 1cd93f134389cc1d88ed04fb1705ce83
+
+Prog Size: 271                            Sectors: 3              TSL: T$17 S$0A
+
+--------------------------------------------------------------------------------
+
+CHARFLASH
+A - Applesoft BASIC                        MD5: cd817287ae04da6cb7eea09cbc73783d
+
+Prog Size: 110                            Sectors: 2              TSL: T$0B S$0F
+
+--------------------------------------------------------------------------------
+
+ALIEN LETTERS
+A - Applesoft BASIC                        MD5: 3096f3b3432316465a1ba79e989c4670
+
+Prog Size: 1570                           Sectors: 8              TSL: T$17 S$05
+
+--------------------------------------------------------------------------------
+
+SNAKEBYTE
+A - Applesoft BASIC                        MD5: aadc61e42b138f95865216cdb188bbf3
+
+Prog Size: 1332                           Sectors: 7              TSL: T$18 S$0D
+
+--------------------------------------------------------------------------------
+
+SCREEN FLIPPER
+A - Applesoft BASIC                        MD5: 0abd5635f1a0ad3626577fead39f59fe
+
+Prog Size: 1033                           Sectors: 6              TSL: T$18 S$07
+
+--------------------------------------------------------------------------------
+
+SCREEN SHRINKER
+A - Applesoft BASIC                        MD5: d72b913de2e5f67cfde0dc7158b10d35
+
+Prog Size: 374                            Sectors: 3              TSL: T$18 S$01
+
+--------------------------------------------------------------------------------
+
+DOGGY NUMBERS
+A - Applesoft BASIC                        MD5: a996f317ab3342573db1ece38921623e
+
+Prog Size: 476                            Sectors: 3              TSL: T$19 S$0E
+
+--------------------------------------------------------------------------------
+
+DOGGY NUMBERS.PGM
+A - Applesoft BASIC                        MD5: 6b06e3b23168d213f9de6609c51682bf
+
+Prog Size: 2477                           Sectors: 12             TSL: T$19 S$0B
+
+--------------------------------------------------------------------------------
+
+NUMBERS.SHAPES
+B - Binary                                 MD5: 0ba6550cb959441f26acada7cc8241ce
+
+  Address: $6100         Size: 656        Sectors: 4              TSL: T$1A S$0F
+
+--------------------------------------------------------------------------------
+
+DOGGY.SHAPES
+B - Binary                                 MD5: 1dc84f030d0b1d04fb8dc2f8b0e598ba
+
+  Address: $6100         Size: 597        Sectors: 4              TSL: T$1A S$0B
+
+--------------------------------------------------------------------------------
+
+BUBBLES"
+A - Applesoft BASIC                        MD5: 0c84e2175cdfaf5168619a4bf8ce264a
+
+Prog Size: 2001                           Sectors: 9              TSL: T$1A S$07
+
+--------------------------------------------------------------------------------
+
+BUBBLES.SHAPES
+B - Binary                                 MD5: 6692d191b368a177b9e6c048870dbce6
+
+  Address: $6100         Size: 433        Sectors: 3              TSL: T$1B S$0E
+
+--------------------------------------------------------------------------------
+
+MULTI-TONE GENIE
+A - Applesoft BASIC                        MD5: 7c090c32d26c5964dffc4f937ac088cf
+
+Prog Size: 196                            Sectors: 2              TSL: T$1B S$0B
+
+--------------------------------------------------------------------------------
+
+GHOSTBUSTERS
+A - Applesoft BASIC                        MD5: bcbae1ebe322e6c1fba55a35a1626545
+
+Prog Size: 2097                           Sectors: 10             TSL: T$1B S$09
+
+--------------------------------------------------------------------------------
+
+GBUSTERS.SHAPES
+B - Binary                                 MD5: 96dd0617b90d6c527ac9336c6a3ad4fa
+
+  Address: $6100         Size: 182        Sectors: 2              TSL: T$1C S$0F
+
+--------------------------------------------------------------------------------
+
+N
+A - Applesoft BASIC                        MD5: cb238fccd407804e8ab6d70cd9914829
+
+Prog Size: 25                             Sectors: 2              TSL: T$09 S$0F
+
+--------------------------------------------------------------------------------
+
+DRAGON'S BREATH
+A - Applesoft BASIC                        MD5: f619da5283894f32b5e4a0bda57cb627
+
+Prog Size: 969                            Sectors: 5              TSL: T$1C S$03
+
+--------------------------------------------------------------------------------
+
+DRAGON.SHAPES
+B - Binary                                 MD5: de606c646f215d38e6c59602e9b2c020
+
+  Address: $6100         Size: 168        Sectors: 3              TSL: T$1D S$0E
+
+--------------------------------------------------------------------------------
+
+GRAPH MOUNTAIN
+A - Applesoft BASIC                        MD5: f3429b7bbb293f1f2ce4e16df7c5614b
+
+Prog Size: 94                             Sectors: 2              TSL: T$20 S$0F
+
+--------------------------------------------------------------------------------
+
+COLOR COLUMN
+A - Applesoft BASIC                        MD5: f5bdc9eb5d237ca39f1e426f95813447
+
+Prog Size: 134                            Sectors: 2              TSL: T$20 S$0D
+
+--------------------------------------------------------------------------------
+
+ROLLING OFF A CLIFF
+A - Applesoft BASIC                        MD5: a1cdb388dc096cfb8c35416e38e75e46
+
+Prog Size: 239                            Sectors: 2              TSL: T$20 S$0B
+
+--------------------------------------------------------------------------------
+
+JOE'S COMET
+A - Applesoft BASIC                        MD5: f3000e9ce1e50ec08800373a413c251a
+
+Prog Size: 137                            Sectors: 2              TSL: T$20 S$09
+
+--------------------------------------------------------------------------------
+
+SOUNDS
+B - Binary                                 MD5: 6a9358ac7e0d3b504dd7e12bd1e0c60d
+
+  Address: $0300         Size: 91         Sectors: 2              TSL: T$09 S$0D
+
+--------------------------------------------------------------------------------
+
+BERSERK
+A - Applesoft BASIC                        MD5: af5d0340dc967886114611ad9a71e0ea
+
+Prog Size: 7168                           Sectors: 30             TSL: T$05 S$0F
+
+--------------------------------------------------------------------------------
+
+BERSERK.FONT
+B - Binary                                 MD5: 10530e6d332996f1211dff3bbb4ab56e
+
+  Address: $6100         Size: 1112       Sectors: 6              TSL: T$04 S$01
+
+--------------------------------------------------------------------------------
+
+BERSERK.SNDS
+B - Binary                                 MD5: 6a9358ac7e0d3b504dd7e12bd1e0c60d
+
+  Address: $0300         Size: 91         Sectors: 2              TSL: T$03 S$0B
+
+--------------------------------------------------------------------------------
+
+GRUNT
+A - Applesoft BASIC                        MD5: a1bc429046294fc455b9d08e1eefd248
+
+Prog Size: 9535                           Sectors: 39             TSL: T$03 S$09
+
+--------------------------------------------------------------------------------
+
+SOUND
+B - Binary                                 MD5: baa52c36c942141d4d981fb8b8dfea05
+
+  Address: $0300         Size: 92         Sectors: 2              TSL: T$1E S$0C
+
+--------------------------------------------------------------------------------
+
+GRUNT.SCORES
+A - Applesoft BASIC                        MD5: 167b06085eaa64477f3cd34571c3a398
+
+Prog Size: 1331                           Sectors: 7              TSL: T$1E S$0A
+
+--------------------------------------------------------------------------------
+
+GRUNT.SHAPES
+B - Binary                                 MD5: 9ca3d63fcce29212a8ffdbd3be313527
+
+  Address: $6100         Size: 290        Sectors: 3              TSL: T$1E S$03
+
+--------------------------------------------------------------------------------
+
+LISA.SHAPES
+B - Binary                                 MD5: 8012ce9e2cb8ced450ca05725c63ddc7
+
+  Address: $6100         Size: 574        Sectors: 4              TSL: T$1F S$0F
+
+--------------------------------------------------------------------------------
+
+LISA'S SHAPES
+A - Applesoft BASIC                        MD5: 86d9b58783b832f39285b9804c6f70a6
+
+Prog Size: 281                            Sectors: 3              TSL: T$20 S$07
+
+--------------------------------------------------------------------------------
+
+OTHELLO
+A - Applesoft BASIC                        MD5: ccfe6a16028bd892d10bf3ed63d789e4
+
+Prog Size: 3444                           Sectors: 15             TSL: T$22 S$0E
+
+--------------------------------------------------------------------------------
+
+GRNT.HISCRS
+T - Text                                   MD5: 8ba38afaec0def0f79e2dfa60f86ab85
+
+                                          Sectors: 2              TSL: T$0D S$0E
+
+--------------------------------------------------------------------------------
+
+AWAY
+A - Applesoft BASIC                        MD5: d5d8d422bff5e611f07a750fdbaa8384
+
+Prog Size: 6413                           Sectors: 27             TSL: T$0C S$0D
+
+--------------------------------------------------------------------------------
+
+SOUND TWIDDLER
+A - Applesoft BASIC                        MD5: b2955df75afcbc15102b74a7613c6fd2
+
+Prog Size: 2940                           Sectors: 13             TSL: T$0A S$0E
+
+--------------------------------------------------------------------------------
+
+MORSE TRAINER
+A - Applesoft BASIC                        MD5: 6ba695bf6033741fa4f4dec74f518785
+
+Prog Size: 3041                           Sectors: 13             TSL: T$20 S$05
+
+--------------------------------------------------------------------------------
+
+VAN DEVENTER
+A - Applesoft BASIC                        MD5: f15a70fdd7319b675ba72f1311c7c48b
+
+Prog Size: 702                            Sectors: 4              TSL: T$0D S$0D
+
+--------------------------------------------------------------------------------
+
+ORBIT SIMULATOR
+A - Applesoft BASIC                        MD5: a58e79465b0e52a726d00dadfb1869e2
+
+Prog Size: 1615                           Sectors: 8              TSL: T$0A S$05
+
+--------------------------------------------------------------------------------
+
+V-MIN MYST
+A - Applesoft BASIC                        MD5: 3509d4fc7d485e691e648f4eef9fba51
+
+Prog Size: 1758                           Sectors: 8              TSL: T$06 S$09
+
+--------------------------------------------------------------------------------
+
+BLACKJACK
+A - Applesoft BASIC                        MD5: 4dc601050e93518ad424183e3429a773
+
+Prog Size: 2271                           Sectors: 10             TSL: T$22 S$01
+
+--------------------------------------------------------------------------------
+
+MAGIC DEUL.TEXT
+A - Applesoft BASIC                        MD5: 0d875c53b22b65d52f8ad2e0f5cc9c5e
+
+Prog Size: 3960                           Sectors: 17             TSL: T$0E S$06
+
+--------------------------------------------------------------------------------
+
+DIVER.SHAPES
+B - Binary                                 MD5: 21491e7cc3a1a4d86b064e16346cc22d
+
+  Address: $6100         Size: 185        Sectors: 2              TSL: T$08 S$09
+
+--------------------------------------------------------------------------------
+
+MANDELBROT
+A - Applesoft BASIC                        MD5: a17b81ae44d1d85ed764901853a6218f
+
+Prog Size: 1392                           Sectors: 7              TSL: T$07 S$0D
+
+--------------------------------------------------------------------------------
+
+PONG
+A - Applesoft BASIC                        MD5: 5dd7b3a142e61c72342f5fdc0d342a73
+
+Prog Size: 721                            Sectors: 4              TSL: T$1F S$05
+
+--------------------------------------------------------------------------------
+
+GRUNT.SHAPES2
+B - Binary                                 MD5: 27e11b9f83a24683531effef3777e70e
+
+  Address: $6100         Size: 290        Sectors: 3              TSL: T$0F S$09
+
+--------------------------------------------------------------------------------
+
+LEMONADE
+A - Applesoft BASIC                        MD5: 274282e30eb32c291b952676726e5ab3
+
+Prog Size: 11776                          Sectors: 48             TSL: T$0F S$06
+
+--------------------------------------------------------------------------------
+
+CLASSIC LEMONADE
+A - Applesoft BASIC                        MD5: ebf7d52c537b6daf2ef89493240df1f3
+
+Prog Size: 51                             Sectors: 2              TSL: T$21 S$09
+
+--------------------------------------------------------------------------------
+
