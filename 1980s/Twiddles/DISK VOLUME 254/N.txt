@@ -1,0 +1,1 @@
+10  HOME : PRINT  CHR$ (4)"RUN HELLO"

@@ -1,0 +1,64 @@
+10  REM 
+
+ Mandelbrot Computer
+
+
+20 LX =  - 1:HX = 1.3
+21  REM  ^ LoX, HiX scan range
+30 LY =  - 1:HY = 0.7
+31  REM  ^ LoY, HiY scan range
+40 CHK = 20
+41  REM  ^ Loops tested: high=accurate borders
+50  REM 
+
+
+80 XW = 279:YW = 160: REM  Screen dimensions
+90 TRUE = 1:FALSE = 0:D$ =  CHR$ (4)
+100  REM  Set-up
+110  TEXT : HOME : HGR : VTAB 21
+120 A$ = "MANDELBROT SET": GOSUB 3000
+500  REM 
+  Main Loop
+
+510  FOR X = LX TO HX STEP (HX - LX) / XW: FOR Y = LY TO HY STEP (HY - LY) / YW
+520  GOSUB 1000:C = 0: IF OUT THEN C = 3: REM  add color here
+580  GOSUB 2000: IF  PEEK (49152) = 209 THEN  GET Z$: GOTO 600
+590  NEXT Y,X
+600  REM 
+  End Menu
+610  VTAB 24: PRINT "<P>rint, <S>ave, or <Q>uit: ";
+620  GET A$: PRINT A$: IF A$ = "P" OR A$ = "p" THEN  GOSUB 4000: GOTO 600
+630  IF A$ = "S" OR A$ = "s" THEN  GOSUB 5000: GOTO 600
+640  IF A$ = "Q" OR A$ = "q" THEN  END 
+650  GOTO 620
+999  END 
+1000  REM  Test math point X,Y
+1001  REM  OUT=TRUE if not in set
+1010 OUT = FALSE:A = X:B = Y:H = X:V = Y
+1020  FOR I = 1 TO CHK:H = H * H - V * V + A:V = 2 * H * V + B: IF  ABS (H) < 2 AND  ABS (V) < 2 THEN  NEXT 
+1030  IF I < CHK THEN OUT = I * TRUE:I = CHK + 1: NEXT I
+1040  RETURN 
+1050  RETURN 
+2000  REM  Draw math point X,Y in color C
+2010 H = XW * ((X - LX) / (HX - LX))
+2020 V = YW - YW * ((Y - LY) / (HY - LY)): REM orients to Cartesian coords
+2030  HCOLOR= C: HPLOT H,V: RETURN 
+3000  REM  Text window display
+3010  HOME : VTAB 21: HTAB 20 -  LEN (A$) / 2: PRINT " ";A$;" "
+3020  NORMAL : PRINT "X Range: ";LX;" to ";HX
+3030  PRINT "Y Range: ";LY;" to ";HY
+3040  RETURN 
+4000  REM  Print
+4010  GOSUB 4500: IF A$ = "" THEN  RETURN 
+4020  PRINT "Press any key when printer is ready: ";: GET Z$
+4030  GOSUB 3000: VTAB 1
+4035  PRINT : PRINT D$"PR#1"
+4040  PRINT  CHR$ (9);"GME"; CHR$ (24)
+4050  PRINT D$"PR#0": RETURN 
+4500  REM  Get name
+4510  PRINT "(Press ESC to exit)": PRINT "Name: ";N$;: HTAB 7
+4520  WAIT 49152,128: IF  PEEK (49152) - 128 = 27 THEN  POKE 49168,0:A$ = "": PRINT : RETURN 
+4530  IF  PEEK (49152) - 128 = 13 THEN A$ = N$: PRINT N$: RETURN 
+4540  INPUT "";A$:N$ = A$: RETURN 
+5000  REM  Save
+6000  REM  Load

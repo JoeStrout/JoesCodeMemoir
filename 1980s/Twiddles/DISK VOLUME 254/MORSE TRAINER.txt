@@ -1,0 +1,88 @@
+10  REM 
+
+MORSE CODE TRAINER
+
+
+20  TEXT : HOME : PRINT  CHR$ (4)"PR#0": HOME 
+30  DIM CD(90,6),W$(100)
+40 S = 40:LN = 86 - S:FR = 115
+50 SG$(1) = "::: ::: ::: ::: :::::               ::   MORSE TRAINER   ::               ::::: ::: ::: ::: :::"
+52 SG$(2) = ":: ::: ::::: ::: ::::               :::: MORSE TRAINER ::                   :::: ::: : ::: ::::"
+54 SG$(3) = "  ::: ::: ::: :::  ::               :::: MORSE TRAINER ::::               ::  ::: ::: ::: :::  "
+56 SG$(4) = ":::: ::: : ::: ::::                   :: MORSE TRAINER ::::               :::: ::: ::::: ::: ::"
+100  POKE 32,11: POKE 33,19: VTAB 1: PRINT SG$(1)
+102  TEXT : VTAB 7: HTAB 14: PRINT "BY JOE STROUT"
+105  GOSUB 5000: GOSUB 5100: GOSUB 5300: REM  INIT
+115  GOTO 140
+120  INPUT "Enter Speed (1-60) : ";S:LN = 86 - S
+125  IF FR THEN 140
+130  INPUT "Enter Beep Pitch (100-200) : ";FR
+140  POKE 32,0: POKE 33,40: POKE 34,6: HOME : PRINT : PRINT  TAB 4)"SPEED: "S; TAB 25)"PITCH: "FR: PRINT 
+150  PRINT "Options:": HTAB 8: PRINT "[S] - Change Speed": HTAB 8: PRINT "[P] - Change Pitch": HTAB 8: PRINT "[E] - Enter a Word"
+155  HTAB 8: PRINT "[L] - Hear a Random Letter": HTAB 8: PRINT "[H] - Hear a Random Word": HTAB 8: PRINT "[V] - View Chart": HTAB 8: PRINT "[Q] - Quit"
+160  PRINT : PRINT "Select [_]" CHR$ (8) CHR$ (8);
+162 :
+165  GOSUB 4500
+170  GET A$: IF A$ <  > "S" AND A$ <  > "P" AND A$ <  > "E" AND A$ <  > "L" AND A$ <  > "H" AND A$ <  > "V" AND A$ <  > "Q" THEN 162
+180  PRINT A$: PRINT : HOME : IF A$ = "S" THEN 120
+190  IF A$ = "P" THEN 130
+200  IF A$ = "E" THEN  PRINT : PRINT : INPUT "Enter a word: ";A$: GOSUB 4800: GOTO 140
+210  IF A$ = "Q" THEN  TEXT : VTAB 12: PRINT "Have a really really super day!": END 
+215  IF A$ = "V" THEN 400
+220  IF A$ = "H" THEN 300
+230 A$ =  CHR$ ( INT (26 *  RND (1) + 65)): GOSUB 4900: PRINT : PRINT 
+235  GOSUB 4700
+240  PRINT "Press any key to reveal the letter: ";: GOSUB 4500: GET B$: PRINT : PRINT : PRINT 
+250  PRINT "The letter was " CHR$ (34)A$ CHR$ (34)"  "C$
+255  PRINT : PRINT 
+260  PRINT "Press any key: ";: GOSUB 4500: GET A$: GOTO 140
+300 A$ = W$( INT (NW *  RND (1) + 1)): GOSUB 4800: PRINT : PRINT 
+310  PRINT "Press any key to reveal the word: ";: GOSUB 4500: GET A$: PRINT : PRINT : PRINT 
+320  PRINT "The word was " CHR$ (34)B$ CHR$ (34)"."
+330  PRINT : PRINT : PRINT "Press any key: ";: GOSUB 4500: GET A$: GOTO 140
+400  REM  CHART
+410  FOR I = 65 TO 90:A$ =  CHR$ (I): GOSUB 4700
+450  PRINT A$" "C$,: NEXT : PRINT : PRINT : PRINT 
+460  PRINT : PRINT "Please press a key: ";: GOSUB 4500: GET A$: GOTO 140
+1999  END 
+4500  REM   RUNNING LIGHTS
+4510 V =  PEEK (37) + 1:H =  PEEK (36) + 1
+4520  POKE 32,11: POKE 33,19: POKE 34,0: PRINT : VTAB 1:SG = SG + 1 - 4 * (SG = 4): PRINT SG$(SG): IF  PEEK (49152) < 128 THEN 4520
+4530  POKE 32,0: POKE 33,40: POKE 34,6: VTAB V: HTAB H: RETURN 
+4700  REM  GET CODE C$ FOR CHAR A$
+4710 A = 1:C =  ASC (A$):C$ = ""
+4720  IF CD(C,A) = 0 THEN 4750
+4730  IF CD(C,A) = 1 THEN C$ = C$ + ".":A = A + 1: GOTO 4720
+4740 C$ = C$ + "-":A = A + 1: GOTO 4720
+4750  RETURN 
+4800  REM 
+ SEND STRING A$
+4810 B$ = A$: FOR I = 1 TO  LEN (B$):A$ =  MID$ (B$,I,1): IF A$ =  > "A" AND A$ <  = "Z" THEN  GOSUB 4900: GOTO 4890
+4820  IF A$ = " " THEN  FOR Q = 1 TO LN * 3.5: NEXT 
+4890  FOR Q = 1 TO LN * 2.5: NEXT : NEXT : RETURN 
+4900  REM 
+ SEND CHARACTER A$
+4910 B = 1
+4920  POKE 768,FR: POKE 769,LN * CD( ASC (A$),B): CALL 770
+4930  FOR Q = 1 TO LN / 2: NEXT :B = B + 1: IF CD( ASC (A$),B) > 0 THEN 4920
+4940  RETURN 
+5000  REM   INIT SOUND
+5010  RESTORE : FOR I = 770 TO 790: READ B: POKE I,B: NEXT : RETURN 
+5020  DATA 173,48,192,136,208,5,206,1,3,240,9,202,208,245,174,0,3,76,2,3,96
+5100  REM   INIT CHARACTER DATA
+5110  FOR I = 65 TO 90: IF I > 57 AND I < 65 THEN  NEXT : REM   NUMBERS LATER!
+5120 B = 1
+5130  READ CD(I,B): IF CD(I,B) > 0 THEN B = B + 1: GOTO 5130
+5140  NEXT : RETURN 
+5200  DATA 1,3,0,3,1,1,1,0,3,1,3,1,0,3,1,1,0,1,0,1,1,3,1,0,3,3,1,0,1,1,1,1,0,1,1,0,1,3,3,3,0,3,1,3,0
+5210  DATA 1,3,1,1,0,3,3,0,3,1,0,3,3,3,0,1,3,3,1,0,3,3,1,3,0,1,3,1,0,1,1,1,0,3,0,1,1,3,0,1,1,1,3,0,1,3,3,0,3,1,1,3,0,3,1,3,3,0,3,3,1,1,0
+5300  REM   INIT WORDS
+5310 NW = 1
+5320  READ W$(NW): IF W$(NW) <  > "end" THEN NW = NW + 1: GOTO 5320
+5330 NW = NW - 1: RETURN 
+5400  DATA HELLO,BYE,I,HEAR,CALL,YOU,ME,IT,AT,WHAT,WHEN,WHERE,DO,LIVE,HOBBY,BAND
+5410  DATA TIME,SLOW,VOICE,CODE,NAME,YOUR,MY,IS
+5420  DATA YES,NO,HI
+5430  DATA HAVE,CAN,BY
+5440 ENJOY,E AT , FRE Q,USA, RUN ,FAST, TO O,REPE AT ,PLEASE
+5499  DATA end

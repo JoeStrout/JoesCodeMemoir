@@ -1,0 +1,39 @@
+10  REM 
+
+ ORBIT SIMULATOR
+
+
+15  DIM X(300),Y(300)
+20  TEXT : HOME : PRINT  CHR$ (4)"PR#3"
+30  PRINT : INVERSE : HTAB 30: PRINT ":::::::::::::::::::::": HTAB 30: PRINT ":                   :": HTAB 30: PRINT ":  ORBIT SIMULATOR  :": HTAB 30: PRINT ":                   :": HTAB 30: PRINT ":::::::::::::::::::::"
+40  NORMAL : PRINT : HTAB 34: PRINT "By Joe Strout": PRINT 
+50 SX = 140:SY = 75:PY = SY
+60  PRINT "   The star is at coordinates 140 (across) by 75 (down).  The range for locationof the planet is 0-279 by 0-191.  Velocities are in location points per day,"
+62  PRINT "and each day the location of the planet is plotted around the star.  Gravita-   tional attraction refers is the product of the masses and the gravitational     constant; drag effect ranges from 1 for total vacuum to .1 for thick soup."
+69  PRINT : PRINT 
+100  INPUT "ENTER LOCATION OF PLANET: ";PX,PY
+110  INPUT "ENTER PLANET'S INITAL VELOCITIES (HOR.,VERT.) : ";DH,DV
+120  PRINT : INPUT "ENTER THE GRAVITATIONAL ATTRACTION: ";G
+130  PRINT : INPUT "ENTER DRAG EFFECT (.1-1) : ";DR
+140  PRINT : INPUT "ENTER TRAIL LENGTH, OR <RETURN> FOR INFINITE: ";A$: IF A$ = "" THEN TL = 0: GOTO 500
+150 A =  VAL (A$): IF A = 0 THEN A = 1
+160  FOR I = 1 TO A:X(I) = PX:Y(I) = PY: NEXT :H = A:T = 1:TL = A
+500  HOME : HGR : HCOLOR= 3: POKE 49234,0
+510  HPLOT SX - 1,SY TO SX + 1,SY: HPLOT SX,SY - 1 TO SX,SY + 1
+520  HPLOT PX,PY
+1000  REM 
+ MAIN LOOP
+1010 OX = PX:OY = PY
+1020 A =  ATN ((PY - SY) / (PX - SX)): REM  ANGLE IN RADIANS
+1030 GP = G / ((PX - SX) ^ 2 + (PY - SY) ^ 2): REM  GRAV. VECTOR
+1040 GV = GP *  SIN (A):GH = GP *  COS (A): REM  BREAK INTO HOR. &  VERT.
+1045 GH =  ABS (GH) *  SGN (SX - PX): REM   SIGN CORRECTION 
+1048 GV =  ABS (GV) *  SGN (SY - PY)
+1050 DH = DH + GH:DV = DV + GV: REM COMBINE W/PLANET VELOCITY 
+1052 DH = DH * DR:DV = DV * DR
+1060 PX = PX + DH:PY = PY + DV: REM  NEW PLANET POSITION
+1090  IF PX < 0 OR PX > 279 OR PY < 0 OR PY > 191 OR ( ABS (PX - SX) < 2 AND  ABS (PY - SY) < 2) THEN 2000
+1095  IF  NOT TL THEN  HPLOT PX,PY: GOTO 1000
+1100  HCOLOR= 0: HPLOT X(T),Y(T): HCOLOR= 3: HPLOT PX,PY:H = T:X(H) = PX:Y(H) = PY:T = T + 1 - TL * (T = TL)
+1110  GOTO 1000
+2000  POKE 49235,0: VTAB 24: END 

@@ -1,0 +1,28 @@
+10  REM 
+
+  WORMS!
+
+
+11  REM 
+
+   BY Joe J. Strout
+12  REM       President, Useless Twaddles Association
+
+
+18  DIM X(100),Y(100)
+20  TEXT : HOME : PRINT : PRINT : PRINT :SH = 25000
+30  IF  NOT FL THEN  PRINT  CHR$ (4)"BLOADWORM.SHAPE,A"SH: POKE 232,SH -  INT (SH / 256) * 256: POKE 233, INT (SH / 256)
+40  HGR : ROT= 0: SCALE= 1: HCOLOR= 3
+50  VTAB 22: INPUT "ENTER WORM LENGTH: ";WL
+60 S = 3
+70  FOR I = 1 TO WL:X(I) = 10 + I * S:Y(I) = 75: DRAW 1 AT X(I),Y(I): NEXT 
+80 HD = WL:TL = 1:R = S * 2 + 1
+100  REM   WORMLOOP
+105 DX = DX +  INT (3 *  RND (1) - 1):DY = DY +  INT (3 *  RND (1) - 1): IF  ABS (DX) > S THEN DX = S *  SGN (DX)
+106  IF  ABS (DY) > S THEN DY = S *  SGN (DY)
+110  HCOLOR= 0:NT = TL + 1 - WL * (TL = WL):NX = X(HD) + DX:NY = Y(HD) + DY: IF NX < 0 THEN NX = 277
+112  IF NX > 277 THEN NX = 2
+115  IF NY < 0 THEN NY = 189
+117  IF NY > 189 THEN NY = 2
+120  DRAW 1 AT X(TL),Y(TL): HCOLOR= 3: DRAW 1 AT X(NT),Y(NT): DRAW 2 AT X(TL) + 1,Y(TL) + 2: DRAW 1 AT NX,NY
+130 X(TL) = NX:Y(TL) = NY:HD = TL:TL = NT: GOTO 100

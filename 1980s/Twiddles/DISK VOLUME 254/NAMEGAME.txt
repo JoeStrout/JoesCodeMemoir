@@ -1,0 +1,12 @@
+5  SPEED= 230
+10  TEXT : HOME : PRINT "Hello.  I am SAM.
+20  PRINT : PRINT : INPUT "What is your name?";NM$
+30  IF  LEN (NM$) < 8 THEN NM$ = NM$ + NM$: GOTO 30
+40  PRINT  TAB 20); LEFT$ (NM$,1): FOR I = 2 TO  LEN (NM$)
+50  PRINT  TAB 21 - I); MID$ (NM$,I,1); TAB 20); MID$ (NM$,I,1) TAB 19 + I); MID$ (NM$,I,1)
+60  NEXT 
+70  PRINT  TAB 21 - I);NM$;" ";NM$
+80  FOR I =  LEN (NM$) TO 2 STEP  - 1
+90  PRINT  TAB 21 - I); MID$ (NM$,I,1); TAB 20); MID$ (NM$,I,1) TAB 19 + I); MID$ (NM$,I,1)
+100  NEXT : GOTO 40
+9050  PRINT  TAB 21 - I); MID$ (NM$,I,1); TAB 20); MID$ (NM$,I,1) TAB 19 + I); MID$ (NM$,I,1)

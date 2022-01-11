@@ -1,0 +1,111 @@
+10  REM 
+
+  MAGIC DUEL - TEXT
+
+
+30  GOSUB 40000
+100  REM 
+
+  MAIN LOOP
+
+
+105  HOME 
+110  PRINT : PRINT "//\//\//\//\//\//\//\//\//\//\//\//\//": PRINT 
+120  FOR P = 0 TO 1: FOR S = 1 TO TS: IF SA(S,P) THEN  GOSUB 30000:SA(S,P) = SA(S,P) - 1
+125  NEXT S: IF P = 0 THEN  GOSUB 10000: GOTO 135
+130  GOSUB 20000
+135  PRINT : NEXT P: PRINT "//\//\//\//\//\//\//\//\//\//\//\//\//": PRINT 
+140  IF SN(0) THEN 200
+150  PRINT "You are not currently casting a spell."
+160  PRINT : PRINT "Enter spell number, Help, or Quit: ";
+170  GET A$: IF A$ = "H" OR A$ = "h" THEN  GOSUB 45000: GOTO 160
+180  IF A$ = "Q" OR A$ = "q" THEN 39000
+190  IF  VAL (A$) < 1 OR  VAL (A$) > TS THEN 170
+195 SN(0) =  VAL (A$):SS(0) = 1: GOTO 300
+200  PRINT : PRINT "You are currently casting spell #"SN(0)",": PRINT SP$(SN(0)): PRINT 
+210  PRINT : PRINT "Press [RET] to continue,": PRINT "  or [A] to abort the spell: ";
+220  GET A$: IF A$ <  >  CHR$ (13) AND A$ <  > "A" AND A$ <  > "a" THEN 220
+230  PRINT A$: PRINT : IF A$ =  CHR$ (13) THEN 260
+240  IF SS(0) < 6 THEN  PRINT "Spell aborted safely.":SN(0) = 0: GOTO 300
+250  PRINT "Too much power built up -- overload!    Violent repercussions wrack your frame!":D = SS(0) * 2:P = 0: GOSUB 900: GOTO 300
+260  ON  INT (4 *  RND (1) + 1) GOTO 265,270,275,280
+265  PRINT "Mugawugamumbum...": GOTO 290
+270  PRINT "Mumblewumble...": GOTO 290
+275  PRINT "Gesture gesture...": GOTO 290
+280  PRINT "Cast cast cast...": GOTO 290
+290 SS(0) = SS(0) + 1
+300  REM   Computer's Turn
+310  IF SN(1) THEN SS(1) = SS(1) + 1: GOTO 100
+320 SN(1) =  INT (TS *  RND (1) + 1):SS(1) = 1: GOTO 100: REM  more intelligent opponent later
+900  REM   Inflict Damage D on Player P
+910 HP(P) = HP(P) - D: IF HP(0) < 1 THEN  PRINT "You are slain.": PRINT : GOTO 39000
+915  IF HP(1) < 1 THEN  PRINT CN$" is slain!": PRINT : GOTO 39000: REM  more later
+918  IF P = 1 THEN  RETURN 
+920  ON  INT (HP(P) / 20) GOTO 930,940,950,960,970
+930  ON  INT (3 *  RND (1) + 1) GOTO 932,934,936
+932  PRINT "A hooded apparition watches you.": RETURN 
+934  PRINT "Your life flashes before your eyes.": RETURN 
+936  PRINT "You are close to death.": RETURN 
+940  PRINT "You feel very weak.": RETURN 
+950  PRINT "You are in great pain.": RETURN 
+960  PRINT "You are damaged.": RETURN 
+980  PRINT "You are still in good shape.": RETURN 
+10000  REM   Spell Descriptions, Player
+10010  IF  NOT SN(0) THEN  RETURN 
+10020  ON SN(0) GOTO 10100,10200,10300,10400,10500,10600,10700,10800
+10100  REM  Spell 1 - Shield
+10110  ON SS(0) GOTO 10120,10130,10140,10150
+10120  PRINT "Power swells within you.": RETURN 
+10130  PRINT "Blue energy swirls before your eyes.": RETURN 
+10140  PRINT "The blue swirls begin to interlock.": RETURN 
+10150 SA(SN(0),0) =  INT (20 * DS(0)):SN(0) = 0: PRINT "A shimmering shield surrounds you.": RETURN 
+10200  REM  Spell 2 - Arrow
+10210  ON SS(0) GOTO 10120,10220,10230,10240
+10220  PRINT "Red energy flows around your arm.": RETURN 
+10230  PRINT "A red bolt shoots from your finger.": RETURN 
+10240 SN(0) = 0: IF  NOT SA(1,1) THEN  PRINT CN$" is hit!":P = 1:D = 12 * OS(0): GOSUB 900:P = 0: RETURN 
+10250  IF DS(1) > OS(0) THEN  PRINT "The bolt splashes harmlessly off your": PRINT "opponent's shield.": RETURN 
+10260  PRINT "The magic energies clash; some of your  red bolt gets through."
+10270 P = 1:D = 12 * (OS(0) - DS(1)): GOSUB 900:P = 0: RETURN 
+20000  REM   Spell Descriptions, Computer
+20010  ON SN(1) GOTO 20100,20200,20300,20400,20500,20600,20700,20800
+20100  REM  Spell 1 - Shield
+20110  ON SS(1) GOTO 20120,20130,20140,20150
+20120  PRINT CN$" is gathering power.": RETURN 
+20130  PRINT "Blue energy swirls around "CN$".": RETURN 
+20140  PRINT "The swirls around "CN$" interlock.": RETURN 
+20150 SA(SN(1),1) =  INT (20 * DS(1)):SN(1) = 0: PRINT "A shimmering shield surrounds your": PRINT "opponent.": RETURN 
+20200  REM  Spell 2 - Arrow
+20210  ON SS(1) GOTO 20120,20220,20230,20240
+20220  PRINT "Red energy flows around "CN$"'s": PRINT "arm.": RETURN 
+20230  PRINT "A red bolt shoots from your opponent's": PRINT "finger.": RETURN 
+20240 SN(1) = 0: IF  NOT SA(1,0) THEN  PRINT "A searing pain shoots through your": PRINT "chest!":P = 0:D = 12 * OS(1): GOSUB 900:P = 1: RETURN 
+20250  IF DS(0) > DS(1) THEN  PRINT "The bolt splashes harmlessly off your": PRINT "shield.": RETURN 
+20260  PRINT "The energies clash before you; some of": PRINT "the red bolt gets through to you!"
+20270 P = 0:D = 12 * (OS(1) - DS(0)): GOSUB 900:P = 1: RETURN 
+30000  REM  Active Spell Descriptions (S,P)
+30010  IF P THEN 30500
+30020  ON S GOTO 30110,30120,30130,30140,30150,30160,30170,30180
+30110  PRINT "A shimmering blue shield surrounds you.": RETURN 
+30490  PRINT "Error; Please tell Sir Joe '";S;"'": GOTO 39000
+30500  ON S GOTO 30510,30520,30530,30540,30550,30560,30570,30580
+30510  PRINT "A shimmering blue shield surrounds your opponent.": RETURN 
+39000  REM  QUIT PROGRAM
+39010  PRINT : PRINT "Press any key to exit: ";
+39020  GET A$
+39030  END 
+40000  REM  INIT
+40010  HOME 
+40020 CN$ = "Elpa":DS(1) = .5:OS(1) = .6: REM give computer advantage 
+40030 DS(0) = .5:OS(0) = .5: REM player
+40040 HP(0) = 100:HP(1) = 100
+41000  READ TS: FOR I = 1 TO TS: READ SP$(I): NEXT 
+41010  DATA 2
+41020  DATA Scutum,Sagitta
+45000  REM  Help Screen
+49999  RETURN 
+50000  REM   VARIABLE LIST
+50010  REM  SN(P),SS(P) = Spell number, step
+50020  REM  SA(S,P) = Spell Active flag/counter
+50030  REM  DS(P),OS(P) = Defensive, Offensive percentages
+50040  REM  HP(P) = Hit points (out of 100)

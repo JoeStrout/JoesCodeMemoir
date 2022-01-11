@@ -1,0 +1,3 @@
+0  REM  =TREASURE HUNT=
+1 TX =  INT (40 *  RND (1)):TY =  INT (40 *  RND (1)):CX = 20:CY = 20: GR : FOR I = 1 TO 90000: COLOR= 0: PLOT CX,CY:CX = CX +  INT ( PDL (0) / 85 - 1):CY = CY +  INT ( PDL (1) / 85 - 1): COLOR= 7: PLOT CX,CY: IF  PEEK (49249) < 128 THEN  NEXT 
+2 D =  INT ( SQR ((CX - TX) ^ 2 + (CY - TY) ^ 2)):MV = MV + 1: PRINT "MOVE "MV"-IT IS "D" FEET AWAY.": COLOR= 6: PLOT CX,CY:I = I + (D < 2) * 90000: NEXT : PRINT "GOOD JOB!"
