@@ -1,0 +1,16 @@
+1  IF  PEEK ( - 16384) - 128 = 1 THEN 140
+2  POKE 1012,0: ONERR  GOTO 1
+5  TEXT : HOME : FOR I = 1024 TO 1063: POKE I,32: POKE I + 976,32: NEXT 
+6  SPEED= 50
+12 T = 8
+15  VTAB T
+19  PRINT "              P R O J E C T": PRINT : SPEED= 150
+20  PRINT "*****   ***   **      ****   ***   ** ******   *****  **     ****   *****  ** ****     ** **  **     **     ** **  ** *****    *   *  **     **     ** **  ** ****     *****  **     **     ** **  *****
+25  VTAB T + 7
+35  PRINT "**     *****  ****   ****   *****  ******      *   *  *****   ****   ***   ** ***                                      *"
+100  REM 
+105  SPEED= 255
+110  PRINT : PRINT : PRINT "ENTER CODE:";
+120  GET A$: PRINT " ";: IF A$ =  CHR$ (13) AND W$ <  > "NOCLAF" THEN  PRINT "   ": CALL  - 1370
+130  IF A$ <  >  CHR$ (13) THEN W$ = W$ + A$: GOTO 120
+140  HOME : PRINT "CATALOG": NEW 
